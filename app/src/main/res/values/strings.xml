@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">passdance</string>
+    <string name="menu_search_user">Найти пользователя</string>
+    <string name="menu_create_user">Новый пользователь</string>
+    <string name="menu_lessons">Уроки</string>
+    <string name="search_user_title">Введите фамилию или номер</string>
+    <string name="user_lastname">Фамилия</string>
+    <string name="user_cardnum">Номер карточки:</string>
+    <string name="user_search_button">Поиск</string>
+    <string name="user_search_scan_button">Сканировать карточку</string>
+    <string name="user_search_select_button">Выбрать</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="user_title">Пользователь</string>
+    <string name="user_firstname">Имя:</string>
+    <string name="addpass_btn">Добавить абонимент</string>
+    <string name="user_add_lesson_btn">Списать занятие</string>
+    <string name="edit_pass_btn">Редактировать абонимент</string>
+    <string name="delete_pass_btn">Удалить абонимент</string>
+    <string name="pass_title">Абонимент</string>
+    <string name="pass_course">Курс</string>
+    <string name="pass_dtlaunch">Дата начала:</string>
+    <string name="edit_text_size">Дата окончания:</string>
+    <string name="pass_ok">Сохранить</string>
+    <string name="barcode_title">Чтение карточки</string>
+</resources>

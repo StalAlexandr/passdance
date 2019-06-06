@@ -1,0 +1,179 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/user_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:padding="@dimen/header_text_padding"
+        android:textSize="@dimen/header_text_size"
+        android:text="@string/user_title"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/user_guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <TextView
+        android:id="@+id/user_lastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/user_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/user_title"
+        android:text="@string/user_lastname"
+        android:textSize="@dimen/edit_text_size"/>
+
+
+    <EditText
+        android:id="@+id/user_lastname_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/user_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_title"
+        android:textSize="@dimen/edit_text_size"
+        android:text="Иванов"
+        android:inputType="text"
+        />
+
+    <TextView
+        android:id="@+id/user_firstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/user_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/user_lastname"
+        android:text="@string/user_firstname"
+        android:textSize="@dimen/edit_text_size"/>
+
+
+    <EditText
+        android:id="@+id/user_firstname_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/user_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_lastname_text"
+        android:textSize="@dimen/edit_text_size"
+        android:text="Иван"
+        android:inputType="text"
+        />
+
+
+    <TextView
+        android:id="@+id/user_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/user_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/user_firstname"
+        android:text="@string/user_cardnum"
+        android:textSize="@dimen/edit_text_size"/>
+
+
+    <EditText
+        android:id="@+id/user_card_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/user_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_firstname_text"
+        android:textSize="@dimen/edit_text_size"
+        android:inputType="text"
+        android:text="777"
+        />
+
+
+
+    <Button
+        android:id="@+id/add_pass_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/addpass_btn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/user_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/user_card_text" />
+
+
+    <Button
+        android:id="@+id/add_lesson_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/user_add_lesson_btn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/user_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_card_text" />
+
+    <ListView
+        android:id="@+id/userpasslist"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@+id/add_lesson_btn"
+        />
+
+    <Button
+        android:id="@+id/edit_pass_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/edit_pass_btn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/user_guidelineCenter"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <Button
+        android:id="@+id/delete_pass_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/delete_pass_btn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/user_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,138 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchUserActivity"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/user_search_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:padding="@dimen/header_text_padding"
+        android:textSize="@dimen/header_text_size"
+        android:text="@string/search_user_title"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hand_input_guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <TextView
+        android:id="@+id/search_user_lastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/hand_input_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/user_search_title"
+        android:text="@string/user_lastname"
+        android:textSize="@dimen/edit_text_size"/>
+
+
+    <EditText
+        android:id="@+id/user_lastname_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/hand_input_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_search_title"
+        android:textSize="@dimen/edit_text_size"
+        android:inputType="text"
+        />
+
+    <TextView
+        android:id="@+id/search_user_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/hand_input_guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/search_user_lastname"
+        android:text="@string/user_cardnum"
+        android:textSize="@dimen/edit_text_size"/>
+
+
+    <EditText
+        android:id="@+id/search_user_card_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="@id/hand_input_guidelineCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_lastname_text"
+        android:textSize="@dimen/edit_text_size"
+        android:inputType="text"
+        />
+
+
+
+    <Button
+        android:id="@+id/search_user_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/user_search_button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_user_card" />
+
+
+
+    <Button
+        android:id="@+id/scan_user_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/user_search_scan_button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_user_btn" />
+
+
+    <ListView
+        android:id="@+id/userlist"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@+id/scan_user_btn"
+        />
+
+
+    <Button
+        android:id="@+id/search_user_select_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/user_search_select_button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
