@@ -16,7 +16,7 @@
         android:textSize="@dimen/header_text_size"
         />
 
-    <ru.alexandrstal.passdance.CameraSourcePreview
+    <ru.maximumdance.passcontrol.CameraSourcePreview
         android:id="@+id/cameraSourcePreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

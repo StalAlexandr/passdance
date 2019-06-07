@@ -31,11 +31,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BarcodeActivity"></activity>
-        <activity android:name=".PassActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".SearchUserActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="ru.maximumdance.passcontrol.BarcodeActivity"></activity>
+        <activity android:name="ru.maximumdance.passcontrol.PassActivity" />
+        <activity android:name="ru.maximumdance.passcontrol.UserActivity" />
+        <activity android:name="ru.maximumdance.passcontrol.SearchUserActivity" />
+        <activity android:name="ru.maximumdance.passcontrol.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

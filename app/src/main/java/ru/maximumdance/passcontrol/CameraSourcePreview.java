@@ -1,4 +1,4 @@
-package ru.alexandrstal.passdance;
+package ru.maximumdance.passcontrol;
 
 
 import android.content.Context;

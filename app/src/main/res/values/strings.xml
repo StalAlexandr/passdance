@@ -3,7 +3,7 @@
     <string name="menu_search_user">Найти пользователя</string>
     <string name="menu_create_user">Новый пользователь</string>
     <string name="menu_lessons">Уроки</string>
-    <string name="search_user_title">Введите фамилию или номер</string>
+    <string name="search_user_title">Введите или отсканируйте номер с карточки</string>
     <string name="user_lastname">Фамилия</string>
     <string name="user_cardnum">Номер карточки:</string>
     <string name="user_search_button">Поиск</string>

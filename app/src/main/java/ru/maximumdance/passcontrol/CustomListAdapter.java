@@ -1,4 +1,4 @@
-package ru.alexandrstal.passdance;
+package ru.maximumdance.passcontrol;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ru.alexandrstal.passdance.R;
 
 public class CustomListAdapter extends ArrayAdapter<String> {
 

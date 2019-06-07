@@ -1,11 +1,23 @@
-package ru.alexandrstal.passdance;
+package ru.maximumdance.passcontrol;
+
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
+
+import ru.alexandrstal.passdance.R;
+import ru.maximumdance.passcontrol.model.Person;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,11 +61,21 @@ public class MainActivity extends AppCompatActivity {
                  //   onBorderControlClick();
                 }
                 if (id == 2) {
-                 //   onPassportClick();
+                    onLessonClick();
                 }
             }
         });
 
+    //    PersonClient personClient =new PersonClient();
+     //  System.out.println(personClient.getPersons());
+
+        // personClient.getPersons().forEach(person -> System.out.println(person.getFirstName()));
+
+    }
+
+    private void onLessonClick() {
+
+      //  new HttpRequestTask().execute();
     }
 
     public void onUserSearchClick() {

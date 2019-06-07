@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchUserActivity"
+    tools:context="ru.maximumdance.passcontrol.SearchUserActivity"
     android:orientation="vertical">
 
 
@@ -29,7 +29,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-
+<!--
     <TextView
         android:id="@+id/search_user_lastname"
         android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
         android:textSize="@dimen/edit_text_size"
         android:inputType="text"
         />
-
+-->
     <TextView
         android:id="@+id/search_user_card"
         android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/hand_input_guidelineCenter"
-        app:layout_constraintTop_toBottomOf="@+id/search_user_lastname"
+        app:layout_constraintTop_toBottomOf="@+id/user_search_title"
         android:text="@string/user_cardnum"
         android:textSize="@dimen/edit_text_size"/>
 
@@ -75,7 +75,7 @@
         android:background="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="@id/hand_input_guidelineCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_lastname_text"
+        app:layout_constraintTop_toBottomOf="@+id/user_search_title"
         android:textSize="@dimen/edit_text_size"
         android:inputType="text"
         />
@@ -121,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/scan_user_btn"
         />
 
-
+<!--
     <Button
         android:id="@+id/search_user_select_btn"
         android:layout_width="200dp"
@@ -134,5 +134,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
+-->
 </android.support.constraint.ConstraintLayout>
