@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 
-
 android {
 
     packagingOptions {
@@ -33,10 +32,9 @@ android {
 }
 
 
-
 dependencies {
 
-   // implementation 'ru.maximumdance:passcontrol:1.0-SNAPSHOT'
+    // implementation 'ru.maximumdance:passcontrol:1.0-SNAPSHOT'
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -44,22 +42,26 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-   // implementation group: 'org.springframework', name: 'spring-core', version: '4.3.13.RELEASE'
- //   implementation group: 'org.springframework', name: 'spring-web', version: '4.3.13.RELEASE'
+    // implementation group: 'org.springframework', name: 'spring-core', version: '4.3.13.RELEASE'
+    //   implementation group: 'org.springframework', name: 'spring-web', version: '4.3.13.RELEASE'
     implementation group: 'javax.persistence', name: 'persistence-api', version: '1.0'
 
     implementation group: 'org.springframework.android', name: 'spring-android-core', version: '1.0.0.RELEASE'
     implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
 
-  //  implementation 'org.springframework.android:spring-android:1.0.1.RELEASE'
-  //  implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+
+    //  implementation 'org.springframework.android:spring-android:1.0.1.RELEASE'
+    //  implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 
 
     //  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'
-  //  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
-  //  implementation group: 'com.fasterxml.jackson.core', name: 'com.springsource.com.fasterxml.jackson.core.jackson-databind', version: '2.0.2'
-
+    //  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
+    //  implementation group: 'com.fasterxml.jackson.core', name: 'com.springsource.com.fasterxml.jackson.core.jackson-databind', version: '2.0.2'
 
 
     implementation 'com.android.support:appcompat-v7:27.0.0'

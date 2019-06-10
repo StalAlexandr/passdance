@@ -20,7 +20,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-import ru.alexandrstal.passdance.R;
 
 public class BarcodeActivity extends AppCompatActivity {
 

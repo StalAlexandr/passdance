@@ -22,4 +22,10 @@
     <string name="edit_text_size">Дата окончания:</string>
     <string name="pass_ok">Сохранить</string>
     <string name="barcode_title">Чтение карточки</string>
+    <string name="add_user_title">Новый пользователь</string>
+    <string name="add_user_button">Сохранить</string>
+    <string name="search_title">Введите номер или фамилию</string>
+    <string name="wrongSearchParams">Введите номер или фамилию!</string>
+    <string name="errorGetUsers">Ошибка сервера при получении списка юзеров!</string>
+    <string name="usersNotFound">Полтзователь не найден!</string>
 </resources>

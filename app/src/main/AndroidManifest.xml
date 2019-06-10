@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.alexandrstal.passdance">
+    package="ru.maximumdance.passcontrol">
 
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -13,10 +13,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Доступ к сети нужен чтобы при первом запуске приложение обновило либу распознавания баркода!!! -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.NFC" />
+
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -25,17 +26,18 @@
         android:required="true" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ru.maximumdance.passcontrol.BarcodeActivity"></activity>
-        <activity android:name="ru.maximumdance.passcontrol.PassActivity" />
-        <activity android:name="ru.maximumdance.passcontrol.UserActivity" />
-        <activity android:name="ru.maximumdance.passcontrol.SearchUserActivity" />
-        <activity android:name="ru.maximumdance.passcontrol.MainActivity">
+        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".BarcodeActivity" />
+        <activity android:name=".PassActivity" />
+        <activity android:name=".SearchUserActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

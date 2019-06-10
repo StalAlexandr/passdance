@@ -1,44 +1,93 @@
 package ru.maximumdance.passcontrol;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
+import android.widget.EditText;
+
 import java.util.List;
 
-import ru.alexandrstal.passdance.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.maximumdance.passcontrol.model.Person;
 
 public class UserActivity extends AppCompatActivity {
 
-    private ListView list;
-    EditText lastName;
-    EditText firstName;
 
-    private final Integer[] imgId = {
-            R.drawable.ico_search_user,  R.drawable.ico_search_user
+    @BindView(R.id.userLastName) EditText userLastName;
+    @BindView(R.id.userFirstName) EditText userFirstName;
+    @BindView(R.id.userCard) EditText userCard;
 
-    };
+    Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        ButterKnife.bind(this);
 
-        findViewById(R.id.add_pass_btn).setOnClickListener(v -> onAddPass());
+        Integer personId = getIntent().getIntExtra("PERSON",-1);
 
-        findViewById(R.id.edit_pass_btn).setOnClickListener(v -> onEditPass());
+        if (personId>0){
 
-        lastName  = findViewById(R.id.user_lastname_text);
-        firstName  = findViewById(R.id.user_firstname_text);
+            App.getApi().getById(personId).enqueue(new Callback<Person>() {
+                @Override
+                public void onResponse(Call<Person> call, Response<Person> response) {
 
-        list = findViewById(R.id.userpasslist);
+                    if (response.body()!=null){
+                        person = response.body();
+                        userLastName.setText(person.getLastName());
+                        userFirstName.setText(person.getFirstName());
+                        userCard.setText(String.format("%d",person.getCardNumber()));
+                    }
 
-        if (getIntent().hasExtra("PERSON")) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Person> call, Throwable t) {
+
+                }
+            });
+        }
+
+
+
+    }
+
+@OnClick(R.id.addUserButton)
+    public void addUser(){
+
+        Person person = new Person();
+
+
+    person.setFirstName(userFirstName.getText().toString());
+    person.setCardNumber(Integer.parseInt(userCard.getText().toString()));
+    person.setLastName(userLastName.getText().toString());
+
+
+    App.getApi().create(person).enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+System.out.println("OK!");
+            }
+
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+System.out.println("ERR " + t.getMessage());
+            }
+        });
+
+    }
+
+
+    /*
+    *    if (getIntent().hasExtra("PERSON")) {
             Person person = getIntent().getParcelableExtra("PERSON");
             lastName.setText(person.getLastName());
             firstName.setText(person.getFirstName());
@@ -65,29 +114,6 @@ public class UserActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
-
-    private void onEditPass() {
-        Intent intent = new Intent(this, PassActivity.class);
-        startActivityForResult(intent, 1);
-    }
-
-    private void onAddPass() {
-        Intent intent = new Intent(this, PassActivity.class);
-        startActivityForResult(intent, 2);
-    }
-
+    * */
 
 }

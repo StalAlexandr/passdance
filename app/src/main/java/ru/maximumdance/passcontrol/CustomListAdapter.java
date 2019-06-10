@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ru.alexandrstal.passdance.R;
-
 public class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

@@ -2,22 +2,11 @@ package ru.maximumdance.passcontrol;
 
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-
-import ru.alexandrstal.passdance.R;
-import ru.maximumdance.passcontrol.model.Person;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,18 +47,14 @@ public class MainActivity extends AppCompatActivity {
                     onUserSearchClick();
                 }
                 if (id == 1) {
-                 //   onBorderControlClick();
+                    onUserAddClick();
                 }
                 if (id == 2) {
                     onLessonClick();
                 }
             }
+
         });
-
-    //    PersonClient personClient =new PersonClient();
-     //  System.out.println(personClient.getPersons());
-
-        // personClient.getPersons().forEach(person -> System.out.println(person.getFirstName()));
 
     }
 
@@ -80,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onUserSearchClick() {
         Intent intent = new Intent(this, SearchUserActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void onUserAddClick() {
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
 
