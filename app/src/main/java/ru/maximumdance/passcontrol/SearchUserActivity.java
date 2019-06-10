@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.alexandrstal.passdance.R;
 import ru.maximumdance.passcontrol.client.PersonClient;
 import ru.maximumdance.passcontrol.model.Person;
 
 public class SearchUserActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.searchUserButton)
+    Button searchUserButton;
 
     private ListView list;
 
@@ -29,9 +39,11 @@ public class SearchUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_user);
 
-        findViewById(R.id.search_user_btn).setOnClickListener(v -> onSearchUser());
+     //   findViewById(R.id.searchUserButton).setOnClickListener(v -> onSearchUser());
 
     //    findViewById(R.id.search_user_select_btn).setOnClickListener(v -> onSelectUser());
+
+
 
         findViewById(R.id.scan_user_btn).setOnClickListener(v -> onScanUser());
 
@@ -40,6 +52,8 @@ public class SearchUserActivity extends AppCompatActivity {
         //search_user_card_text
 
         list = findViewById(R.id.userlist);
+        ButterKnife.bind(this);
+      //  searchUserButton.setText("123");
 
     }
 
@@ -50,8 +64,9 @@ public class SearchUserActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    private void onSearchUser() {
-
+    @OnClick(value = R.id.searchUserButton)
+    public void onSearchUser() {
+        Toast.makeText(this.getApplicationContext(), "YES", Toast.LENGTH_SHORT);
         new SearchUserTask(cardNumber.getText().toString()).execute();
 
       //  String[] itemName = {"Иванов Иван 777"};
