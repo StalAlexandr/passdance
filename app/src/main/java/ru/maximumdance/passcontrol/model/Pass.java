@@ -5,9 +5,13 @@ import android.os.Parcelable;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import ru.maximumdance.passcontrol.model.util.DateConverter;
 
 @Entity
 @Table(name = "pass")
@@ -73,7 +77,51 @@ public class Pass implements Parcelable {
         } else {
             currentItemCount = in.readInt();
         }
+
+        try {
+            launchDate = DateConverter.fromString(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            terminateDate = DateConverter.fromString(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        lessons = new HashSet<>(in.createTypedArrayList(Lesson.CREATOR));
+
     }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
+        parcel.writeParcelable(course, i);
+        parcel.writeParcelable(person, i);
+        if (itemCount == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(itemCount);
+        }
+        if (currentItemCount == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(currentItemCount);
+        }
+        parcel.writeString(DateConverter.toString(launchDate));
+        parcel.writeString(DateConverter.toString(terminateDate));
+        parcel.writeTypedList(new ArrayList<>(lessons));
+
+
+    }
+
 
     public static final Creator<Pass> CREATOR = new Creator<Pass>() {
         @Override
@@ -163,27 +211,5 @@ public class Pass implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(id);
-        }
-        parcel.writeParcelable(course, i);
-        parcel.writeParcelable(person, i);
-        if (itemCount == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(itemCount);
-        }
-        if (currentItemCount == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(currentItemCount);
-        }
-    }
+
 }

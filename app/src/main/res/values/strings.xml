@@ -1,19 +1,19 @@
 <resources>
     <string name="app_name">passdance</string>
-    <string name="menu_search_user">Найти пользователя</string>
-    <string name="menu_create_user">Новый пользователь</string>
+    <string name="menu_search_person">Найти пользователя</string>
+    <string name="menu_create_person">Новый пользователь</string>
     <string name="menu_lessons">Уроки</string>
-    <string name="search_user_title">Введите или отсканируйте номер с карточки</string>
-    <string name="user_lastname">Фамилия</string>
-    <string name="user_cardnum">Номер карточки:</string>
-    <string name="user_search_button">Поиск</string>
-    <string name="user_search_scan_button">Сканировать карточку</string>
-    <string name="user_search_select_button">Выбрать</string>
-    <string name="title_activity_user">UserActivity</string>
-    <string name="user_title">Пользователь</string>
-    <string name="user_firstname">Имя:</string>
+    <string name="search_person_title">Введите или отсканируйте номер с карточки</string>
+    <string name="person_lastname">Фамилия</string>
+    <string name="person_cardnum">Номер карточки:</string>
+    <string name="person_search_button">Поиск</string>
+    <string name="person_search_scan_button">Сканировать карточку</string>
+    <string name="person_search_select_button">Выбрать</string>
+    <string name="title_activity_person">personActivity</string>
+    <string name="person_title">Пользователь</string>
+    <string name="person_firstname">Имя:</string>
     <string name="addpass_btn">Добавить абонимент</string>
-    <string name="user_add_lesson_btn">Списать занятие</string>
+    <string name="person_add_lesson_btn">Списать занятие</string>
     <string name="edit_pass_btn">Редактировать абонимент</string>
     <string name="delete_pass_btn">Удалить абонимент</string>
     <string name="pass_title">Абонимент</string>
@@ -22,10 +22,11 @@
     <string name="edit_text_size">Дата окончания:</string>
     <string name="pass_ok">Сохранить</string>
     <string name="barcode_title">Чтение карточки</string>
-    <string name="add_user_title">Новый пользователь</string>
-    <string name="add_user_button">Сохранить</string>
+    <string name="add_person_title">Новый пользователь</string>
+    <string name="add_person_button">Сохранить</string>
     <string name="search_title">Введите номер или фамилию</string>
     <string name="wrongSearchParams">Введите номер или фамилию!</string>
-    <string name="errorGetUsers">Ошибка сервера при получении списка юзеров!</string>
-    <string name="usersNotFound">Полтзователь не найден!</string>
+    <string name="errorGetPersons">Ошибка сервера при получении списка юзеров!</string>
+    <string name="personsNotFound">Полтзователь не найден!</string>
+    <string name="passes_title">Абонименты:</string>
 </resources>

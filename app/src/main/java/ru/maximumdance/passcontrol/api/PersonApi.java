@@ -3,11 +3,7 @@ package ru.maximumdance.passcontrol.api;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 import ru.maximumdance.passcontrol.model.Person;
 
 public interface PersonApi {
@@ -22,6 +18,12 @@ public interface PersonApi {
     @GET("/persons/{id}")
     Call<Person> getById(@Path("id") Integer id);
 
+    @GET("/persons/select")
+    Call<Person> getByCardNumber(@Query("cardNumber") Integer cardNumber);
+
     @POST("/persons/")
     Call<Person> create(@Body Person person);
+
+    @PUT("/persons/")
+    Call<Person> update(@Body Person person);
 }

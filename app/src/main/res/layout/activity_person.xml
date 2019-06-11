@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.maximumdance.passcontrol.UserActivity"
+    tools:context="ru.maximumdance.passcontrol.PersonActivity"
     android:orientation="vertical">
 
 
     <android.support.constraint.Guideline
-        android:id="@+id/userGuidelineCenter"
+        android:id="@+id/personGuidelineCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/userTitle"
+        android:id="@+id/personTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,101 +26,125 @@
         android:textStyle="bold"
         android:padding="@dimen/header_text_padding"
         android:textSize="@dimen/header_text_size"
-        android:text="@string/add_user_title"
+        android:text="@string/person_title"
         />
 
 
     <TextView
-        android:id="@+id/userLastNameLabel"
+        android:id="@+id/personLastNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/userGuidelineCenter"
-        app:layout_constraintTop_toBottomOf="@+id/userTitle"
-        android:text="@string/user_lastname"
+        app:layout_constraintRight_toRightOf="@id/personGuidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/personTitle"
+        android:text="@string/person_lastname"
         android:textSize="@dimen/edit_text_size"/>
 
 
     <EditText
-        android:id="@+id/userLastName"
+        android:id="@+id/personLastName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintLeft_toLeftOf="@id/userGuidelineCenter"
+        app:layout_constraintLeft_toLeftOf="@id/personGuidelineCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTitle"
+        app:layout_constraintTop_toBottomOf="@+id/personTitle"
         android:textSize="@dimen/edit_text_size"
-        android:text="Иванов"
+        android:text=""
         android:inputType="text"
         />
 
     <TextView
-        android:id="@+id/userFirstNameLabel"
+        android:id="@+id/personFirstNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/userGuidelineCenter"
-        app:layout_constraintTop_toBottomOf="@+id/userLastNameLabel"
-        android:text="@string/user_firstname"
+        app:layout_constraintRight_toRightOf="@id/personGuidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/personLastNameLabel"
+        android:text="@string/person_firstname"
         android:textSize="@dimen/edit_text_size"/>
 
 
     <EditText
-        android:id="@+id/userFirstName"
+        android:id="@+id/personFirstName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintLeft_toLeftOf="@id/userGuidelineCenter"
+        app:layout_constraintLeft_toLeftOf="@id/personGuidelineCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userLastName"
+        app:layout_constraintTop_toBottomOf="@+id/personLastName"
         android:textSize="@dimen/edit_text_size"
-        android:text="Иван"
+        android:text=""
         android:inputType="text"
         />
 
 
     <TextView
-        android:id="@+id/userCardLabel"
+        android:id="@+id/personCardLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/userGuidelineCenter"
-        app:layout_constraintTop_toBottomOf="@+id/userFirstNameLabel"
-        android:text="@string/user_cardnum"
+        app:layout_constraintRight_toRightOf="@id/personGuidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/personFirstNameLabel"
+        android:text="@string/person_cardnum"
         android:textSize="@dimen/edit_text_size"/>
 
 
     <EditText
-        android:id="@+id/userCard"
+        android:id="@+id/personCard"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintLeft_toLeftOf="@id/userGuidelineCenter"
+        app:layout_constraintLeft_toLeftOf="@id/personGuidelineCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/personFirstName"
         android:textSize="@dimen/edit_text_size"
         android:inputType="text"
-        android:text="777"
+        android:text=""
         />
 
 
+    <TextView
+        android:id="@+id/passesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personCard"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:padding="@dimen/header_text_padding"
+        android:textSize="@dimen/header_text_size"
+        android:text="@string/passes_title"
+        />
 
+
+    <ListView
+        android:id="@+id/passesList"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@+id/passesTitle"
+        />
 
 
     <Button
-        android:id="@+id/addUserButton"
+        android:id="@+id/addPersonButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
-        android:text="@string/add_user_button"
+        android:text="@string/add_person_button"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

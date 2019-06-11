@@ -7,9 +7,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import ru.maximumdance.passcontrol.model.util.DateConverter;
 
 @Entity
 @Table(name = "lessons")
@@ -26,6 +30,9 @@ public class Lesson implements Parcelable {
     @Column
     Date date;
 
+    @Column
+    String name;
+
     @JsonBackReference
     @ManyToMany(mappedBy = "lessons")
     Set<Pass> passes = new HashSet<>();
@@ -37,7 +44,30 @@ public class Lesson implements Parcelable {
         } else {
             id = in.readLong();
         }
+        try {
+            date = DateConverter.fromString(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        name = in.readString();
         course = in.readParcelable(Course.class.getClassLoader());
+        passes = new HashSet(in.createTypedArrayList(Pass.CREATOR));
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeString(DateConverter.toString(date));
+        parcel.writeString(name);
+        parcel.writeParcelable(course, i);
+        parcel.writeTypedList(new ArrayList<>(passes));
+
     }
 
     public static final Creator<Lesson> CREATOR = new Creator<Lesson>() {
@@ -90,14 +120,5 @@ public class Lesson implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeLong(id);
-        }
-        parcel.writeParcelable(course, i);
-    }
+
 }

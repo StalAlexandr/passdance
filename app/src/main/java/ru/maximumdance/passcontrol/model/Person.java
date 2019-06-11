@@ -3,10 +3,13 @@ package ru.maximumdance.passcontrol.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+
+import ru.maximumdance.passcontrol.model.util.DateConverter;
 
 @Entity
 @Table(name = "persons")
@@ -67,6 +70,11 @@ public class Person  implements Parcelable {
         midName = in.readString();
         phoneNumber = in.readString();
         comment = in.readString();
+        try {
+            birthDate = DateConverter.fromString(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         passes = in.createTypedArrayList(Pass.CREATOR);
     }
 
@@ -89,12 +97,8 @@ public class Person  implements Parcelable {
         dest.writeString(midName);
         dest.writeString(phoneNumber);
         dest.writeString(comment);
+        dest.writeString(DateConverter.toString(birthDate));
         dest.writeTypedList(passes);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -108,6 +112,13 @@ public class Person  implements Parcelable {
             return new Person[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
 
     public Integer getId() {
         return id;

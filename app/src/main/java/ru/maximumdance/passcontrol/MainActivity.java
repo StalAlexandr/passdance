@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         String[] itemName = new String[3];
-        itemName[0] = getResources().getString(R.string.menu_search_user);
-        itemName[1] = getResources().getString(R.string.menu_create_user);
+        itemName[0] = getResources().getString(R.string.menu_search_person);
+        itemName[1] = getResources().getString(R.string.menu_create_person);
         itemName[2] = getResources().getString(R.string.menu_lessons);
 
         CustomListAdapter adapter = new CustomListAdapter(this, itemName, imgId);
@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onUserSearchClick() {
-        Intent intent = new Intent(this, SearchUserActivity.class);
+        Intent intent = new Intent(this, SearchPersonActivity.class);
         startActivity(intent);
     }
 
 
     public void onUserAddClick() {
-        Intent intent = new Intent(this, UserActivity.class);
+        Intent intent = new Intent(this, PersonActivity.class);
         startActivity(intent);
     }
 

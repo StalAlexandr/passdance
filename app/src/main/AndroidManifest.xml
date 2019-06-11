@@ -33,10 +33,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".PersonActivity"></activity>
         <activity android:name=".BarcodeActivity" />
         <activity android:name=".PassActivity" />
-        <activity android:name=".SearchUserActivity" />
+        <activity android:name=".SearchPersonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
