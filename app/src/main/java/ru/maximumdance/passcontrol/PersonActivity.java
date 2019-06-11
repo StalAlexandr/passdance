@@ -28,6 +28,7 @@ import ru.maximumdance.passcontrol.model.util.PersonValidator;
 public class PersonActivity extends AppCompatActivity {
 
 
+    private static final int SEND_PASS = 0;
     @BindView(R.id.personLastName)
     EditText personLastName;
     @BindView(R.id.personFirstName)
@@ -79,6 +80,12 @@ public class PersonActivity extends AppCompatActivity {
             App.getApi().update(person).enqueue(new PersonCallback());
         }
 
+    }
+
+    @OnClick(R.id.addPass)
+    public void onAddPass(){
+        Intent intent = PassActivity.createIntent(this, null);
+        startActivityForResult(intent, SEND_PASS);
     }
 
     private void bind() {

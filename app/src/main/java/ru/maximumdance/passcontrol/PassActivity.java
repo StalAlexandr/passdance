@@ -1,10 +1,12 @@
 package ru.maximumdance.passcontrol;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -12,37 +14,79 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import ru.maximumdance.passcontrol.model.Pass;
+
 
 public class PassActivity extends AppCompatActivity {
 
-    private TextView launchDateView;
+
+    private static final String PASS_KEY = "PASS_KEY";
+    @BindView(R.id.passDtLaunch)
+    TextView launchDateView;
+
+    @BindView(R.id.passDtexpire)
+    TextView expireDateView;
+
+    @BindView(R.id.passCourses)
+    Spinner passCourses;
+
+
     private Calendar launchDate;
-    private TextView expireDateView;
     private Calendar expireDate;
+
+    Pass pass;
+
+    public static Intent createIntent(Activity from, Pass pass) {
+
+        Intent intent = new Intent(from, PassActivity.class);
+        if (pass!=null){
+            intent.putExtra(PASS_KEY, pass);
+        }
+        return  intent;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass);
+        ButterKnife.bind(this);
 
+        pass = getIntent().getParcelableExtra(PASS_KEY);
 
-        findViewById(R.id.pass_ok).setOnClickListener(v -> onPassOK());
-
-        launchDate = Calendar.getInstance();
-        launchDateView = findViewById(R.id.pass_dtlaunch_text);
-
-        expireDate = Calendar.getInstance();
-        expireDateView = findViewById(R.id.pass_dtexpire_text);
-
-        setInitialBirthDate();
-        setInitialIssuedDate();
-
-        findViewById(R.id.pass_dtlaunch_text).setOnClickListener(v->onSelectLaunchDate());
-        findViewById(R.id.pass_dtexpire_text).setOnClickListener(v->onSelectExpireDate());
+        if (pass == null){
+            init();
+        } else {
+            render();
+        }
 
     }
 
-    private void onSelectExpireDate() {
+    private void render() {
+
+        expireDate.setTime(pass.getTerminateDate());
+        launchDate.setTime(pass.getLaunchDate());
+
+        setInitialLaunchDate();
+        setInitialExpireDate();
+
+    }
+
+    private void init() {
+
+        launchDate = Calendar.getInstance();
+        expireDate = Calendar.getInstance();
+        expireDate.add(Calendar.MONTH, 1);
+        setInitialLaunchDate();
+        setInitialExpireDate();
+
+    }
+
+    @OnClick({R.id.passDtexpire})
+    public void onSelectExpireDate() {
         new DatePickerDialog(PassActivity.this, R.style.DatePickerDialog, expireListener,
                 expireDate.get(Calendar.YEAR),
                 expireDate.get(Calendar.MONTH),
@@ -50,7 +94,8 @@ public class PassActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void onSelectLaunchDate() {
+    @OnClick({R.id.passDtLaunch})
+    public void onSelectLaunchDate() {
         new DatePickerDialog(PassActivity.this, R.style.DatePickerDialog, launchListener,
                 launchDate.get(Calendar.YEAR),
                 launchDate.get(Calendar.MONTH),
@@ -58,16 +103,17 @@ public class PassActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void setInitialBirthDate() {
+    private void setInitialLaunchDate() {
         launchDateView.setText(calendar2Str(launchDate));
     }
 
-    private void setInitialIssuedDate() {
+    private void setInitialExpireDate() {
         expireDateView.setText(calendar2Str(expireDate));
     }
 
 
-    private void onPassOK() {
+    @OnClick(R.id.passOk)
+    public void onPassOK() {
         Intent resultIntent = new Intent();
         setResult(RESULT_OK, resultIntent);
         finish();
@@ -87,7 +133,7 @@ public class PassActivity extends AppCompatActivity {
             expireDate.set(Calendar.YEAR, year);
             expireDate.set(Calendar.MONTH, monthOfYear);
             expireDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialIssuedDate();
+            setInitialExpireDate();
         }
     };
 
@@ -96,7 +142,7 @@ public class PassActivity extends AppCompatActivity {
             launchDate.set(Calendar.YEAR, year);
             launchDate.set(Calendar.MONTH, monthOfYear);
             launchDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialBirthDate();
+            setInitialLaunchDate();
         }
     };
 

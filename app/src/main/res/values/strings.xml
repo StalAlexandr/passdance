@@ -29,4 +29,5 @@
     <string name="errorGetPersons">Ошибка сервера при получении списка юзеров!</string>
     <string name="personsNotFound">Полтзователь не найден!</string>
     <string name="passes_title">Абонименты:</string>
+    <string name="add_pass_button">Абонимент</string>
 </resources>
