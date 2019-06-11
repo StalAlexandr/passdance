@@ -22,6 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.maximumdance.passcontrol.api.PersonApi;
 import ru.maximumdance.passcontrol.model.Person;
+import ru.maximumdance.passcontrol.model.util.PersonValidationException;
+import ru.maximumdance.passcontrol.model.util.PersonValidator;
 
 public class PersonActivity extends AppCompatActivity {
 
@@ -59,7 +61,17 @@ public class PersonActivity extends AppCompatActivity {
 
     @OnClick(R.id.addPersonButton)
     public void addPerson() {
+
         bind();
+
+        try {
+            PersonValidator.validate(person);
+        } catch (PersonValidationException e) {
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         if (person.getId()==null) {
             App.getApi().create(person).enqueue(new PersonCallback());
         }
@@ -74,11 +86,11 @@ public class PersonActivity extends AppCompatActivity {
             person = new Person();
         }
 
-        person.setFirstName(personFirstName.getText().toString());
+        person.setFirstName(personFirstName.getText().toString().trim());
        try {
-           person.setCardNumber(Integer.parseInt(personCard.getText().toString()));
+           person.setCardNumber(Integer.parseInt(personCard.getText().toString().trim()));
        } catch (NumberFormatException e){person.setCardNumber(null);}
-        person.setLastName(personLastName.getText().toString());
+        person.setLastName(personLastName.getText().toString().trim());
 
     }
 
