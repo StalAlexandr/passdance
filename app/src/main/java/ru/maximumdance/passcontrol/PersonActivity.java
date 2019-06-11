@@ -75,7 +75,9 @@ public class PersonActivity extends AppCompatActivity {
         }
 
         person.setFirstName(personFirstName.getText().toString());
-        person.setCardNumber(Integer.parseInt(personCard.getText().toString()));
+       try {
+           person.setCardNumber(Integer.parseInt(personCard.getText().toString()));
+       } catch (NumberFormatException e){person.setCardNumber(null);}
         person.setLastName(personLastName.getText().toString());
 
     }
