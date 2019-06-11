@@ -136,7 +136,7 @@ public class SearchPersonActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Person>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "ERROR"  + t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Не удалось найти пользователя"  ,Toast.LENGTH_SHORT).show();
             }
         });
 
