@@ -28,7 +28,7 @@ public interface PersonApi {
     @PUT("/persons/")
     Call<Person> update(@Body Person person);
 
-    @PUT("/persons/{id}/pass")
+    @POST("/persons/{id}/pass")
     Call<Person> addPass(@Path("id") Integer id, @Body Pass person);
 
 }

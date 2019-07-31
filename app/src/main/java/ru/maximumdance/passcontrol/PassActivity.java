@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -122,9 +123,18 @@ public class PassActivity extends AppCompatActivity {
         pass.setItemCount(selectedItemCount);
         pass.setCourse(selectedCourse);
 
-        System.out.println(pass);
+        App.getAppComponent().networkProvider().addPass(pass, this::onPassSaved, this::onPassSaveFail);
 
 
+    }
+
+    private void onPassSaved() {
+        Toast.makeText(getApplicationContext(), "Абонимент сохранен", Toast.LENGTH_LONG).show();
+        startActivity(App.getAppComponent().intentManager().onPerson());
+    }
+
+    private void onPassSaveFail(Throwable t) {
+        Toast.makeText(getApplicationContext(), "Ошибка сохранения: " + t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     private String calendar2Str(Calendar cal) {

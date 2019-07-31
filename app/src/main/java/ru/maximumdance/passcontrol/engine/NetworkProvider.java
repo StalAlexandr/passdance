@@ -46,7 +46,21 @@ public class NetworkProvider {
 
     };
 
-    public void addPass(Person person, Pass pass){
+    public void addPass(Pass pass, CallbackSuccess success, CallbackFail fail){
+
+
+        personApi.addPass(currentPerson.getValue().getId(), pass).enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                currentPerson.setValue(response.body());
+                success.call();
+            }
+
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+                fail.call(t);
+            }
+        });
 
     };
 

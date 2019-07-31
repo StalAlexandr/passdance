@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.maximumdance.passcontrol.model.CourseLevel;
+import ru.maximumdance.passcontrol.model.Pass;
 import ru.maximumdance.passcontrol.model.Person;
 import ru.maximumdance.passcontrol.model.util.PersonValidationException;
 import ru.maximumdance.passcontrol.model.util.PersonValidator;
@@ -103,24 +104,16 @@ public class PersonActivity extends AppCompatActivity {
         personFirstName.setText(person.getFirstName());
         personCard.setText(String.format("%d", person.getCardNumber()));
 
-        List<String> p = person.getPasses().stream().map(pass -> pass.getCourse().getName() + " " + pass.getCurrentItemCount() + " / " + pass.getItemCount()).collect(Collectors.toList());
-        ;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, p);
+        ArrayAdapter<Pass> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, person.getPasses());
         passesList.setAdapter(adapter);
 
 
         passesList.setOnItemClickListener((adapterView, view, i, l) -> {
 
-            CourseLevel[] levels = new CourseLevel[2];
-            CourseLevel level = new CourseLevel();
-            level.setName("начальный");
-            CourseLevel level2 = new CourseLevel();
-            level2.setName("продолжающий");
-            levels[0] = level;
-            levels[1] = level2;
+            Pass pass = App.getAppComponent().currentPerson().getValue().getPasses().get(i);
 
             ArrayAdapter<CourseLevel> courseLevelArrayAdapter = new ArrayAdapter<>(this,
-                    android.R.layout.select_dialog_singlechoice, levels);
+                    android.R.layout.select_dialog_singlechoice, pass.getCourse().getCourseLevels());
 
             new AlertDialog.Builder(this)
                     .setSingleChoiceItems(courseLevelArrayAdapter, 0, (dialogInterface, i1) -> System.out.println(i1))

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ru.maximumdance.passcontrol.model.util.DateConverter;
 
@@ -131,15 +132,6 @@ public class Pass {
 
     @Override
     public String toString() {
-        return "Pass{" +
-                "id=" + id +
-                ", course=" + course +
-                ", person=" + person +
-                ", itemCount=" + itemCount +
-                ", currentItemCount=" + currentItemCount +
-                ", launchDate=" + launchDate +
-                ", terminateDate=" + terminateDate +
-                ", lessons=" + lessons +
-                '}';
+      return  getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount();
     }
 }
