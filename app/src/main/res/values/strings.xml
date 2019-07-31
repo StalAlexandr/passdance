@@ -2,7 +2,7 @@
     <string name="app_name">passdance</string>
     <string name="menu_search_person">Найти пользователя</string>
     <string name="menu_create_person">Новый пользователь</string>
-    <string name="menu_lessons">Уроки</string>
+    <string name="menu_stat">Статистика</string>
     <string name="search_person_title">Введите или отсканируйте номер с карточки</string>
     <string name="person_lastname">Фамилия</string>
     <string name="person_cardnum">Номер карточки:</string>
@@ -30,4 +30,5 @@
     <string name="personsNotFound">Полтзователь не найден!</string>
     <string name="passes_title">Абонименты:</string>
     <string name="add_pass_button">Абонимент</string>
+    <string name="pass_lessonCounts">Число уроков:</string>
 </resources>

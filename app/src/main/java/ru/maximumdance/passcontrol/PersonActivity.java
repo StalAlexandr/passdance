@@ -1,7 +1,7 @@
 package ru.maximumdance.passcontrol;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,15 +20,13 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.maximumdance.passcontrol.api.PersonApi;
+import ru.maximumdance.passcontrol.model.CourseLevel;
 import ru.maximumdance.passcontrol.model.Person;
 import ru.maximumdance.passcontrol.model.util.PersonValidationException;
 import ru.maximumdance.passcontrol.model.util.PersonValidator;
 
 public class PersonActivity extends AppCompatActivity {
 
-
-    private static final int SEND_PASS = 0;
     @BindView(R.id.personLastName)
     EditText personLastName;
     @BindView(R.id.personFirstName)
@@ -39,15 +37,7 @@ public class PersonActivity extends AppCompatActivity {
     @BindView(R.id.passesList)
     ListView passesList;
 
-    private Person person;
-
-    private static final String PERSON_KEY = "PERSON";
-
-    public static Intent createIntent(Activity from, Person person) {
-        Intent intent = new Intent(from, PersonActivity.class);
-        intent.putExtra(PERSON_KEY, person);
-        return intent;
-    }
+    private IntentManager intentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,53 +45,56 @@ public class PersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person);
         ButterKnife.bind(this);
 
-        person = getIntent().getParcelableExtra(PERSON_KEY);
+        intentManager = App.getAppComponent().intentManager();
+        App.getAppComponent().currentPerson().observe(this, this::render);
 
-        render();
     }
+
 
     @OnClick(R.id.addPersonButton)
     public void addPerson() {
 
-        bind();
+        Person person = bind();
 
         try {
             PersonValidator.validate(person);
         } catch (PersonValidationException e) {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
 
-
-        if (person.getId()==null) {
-            App.getApi().create(person).enqueue(new PersonCallback());
-        }
-        else {
-            App.getApi().update(person).enqueue(new PersonCallback());
-        }
+        App.getAppComponent().networkProvider().savePerson(person, this::onPersonSaveSuccess, this::onPersonSaveFail);
 
     }
+
+    void onPersonSaveSuccess() {
+        Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
+    }
+
+    private void onPersonSaveFail(Throwable t) {
+        Toast.makeText(getApplicationContext(), "Ошибка сохранения: " + t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
 
     @OnClick(R.id.addPass)
-    public void onAddPass(){
-        Intent intent = PassActivity.createIntent(this, null);
-        startActivityForResult(intent, SEND_PASS);
+    public void onAddPass() {
+        startActivity(intentManager.onPass());
     }
 
-    private void bind() {
-        if (person == null) {
-            person = new Person();
-        }
+    private Person bind() {
+        Person person = new Person();
 
-        person.setFirstName(personFirstName.getText().toString().trim());
-       try {
-           person.setCardNumber(Integer.parseInt(personCard.getText().toString().trim()));
-       } catch (NumberFormatException e){person.setCardNumber(null);}
         person.setLastName(personLastName.getText().toString().trim());
-
+        person.setFirstName(personFirstName.getText().toString().trim());
+        try {
+            person.setCardNumber(Integer.parseInt(personCard.getText().toString().trim()));
+        } catch (NumberFormatException e) {
+            person.setCardNumber(null);
+        }
+        return person;
     }
 
-    private void render() {
+    private void render(Person person) {
 
         if (person == null) {
             return;
@@ -110,28 +103,40 @@ public class PersonActivity extends AppCompatActivity {
         personFirstName.setText(person.getFirstName());
         personCard.setText(String.format("%d", person.getCardNumber()));
 
-        List<String> p = person.getPasses().stream().map(pass->pass.getCourse().getName() + " "+ pass.getCurrentItemCount() + " / " + pass.getItemCount()).collect(Collectors.toList());;
+        List<String> p = person.getPasses().stream().map(pass -> pass.getCourse().getName() + " " + pass.getCurrentItemCount() + " / " + pass.getItemCount()).collect(Collectors.toList());
+        ;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, p);
         passesList.setAdapter(adapter);
 
+
+        passesList.setOnItemClickListener((adapterView, view, i, l) -> {
+
+            CourseLevel[] levels = new CourseLevel[2];
+            CourseLevel level = new CourseLevel();
+            level.setName("начальный");
+            CourseLevel level2 = new CourseLevel();
+            level2.setName("продолжающий");
+            levels[0] = level;
+            levels[1] = level2;
+
+            ArrayAdapter<CourseLevel> courseLevelArrayAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.select_dialog_singlechoice, levels);
+
+            new AlertDialog.Builder(this)
+                    .setSingleChoiceItems(courseLevelArrayAdapter, 0, (dialogInterface, i1) -> System.out.println(i1))
+                    .setPositiveButton("Списать", (dialog, whichButton) -> {
+                        dialog.dismiss();
+                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                    })
+                    .setNegativeButton("Отмена", (dialog, whichButton) -> {
+                        dialog.dismiss();
+
+                    })
+                    .show();
+
+        });
+
     }
 
-
-    class PersonCallback implements Callback<Person> {
-
-        @Override
-        public void onResponse(Call<Person> call, Response<Person> response) {
-            if (response.body()!=null){
-                Toast.makeText(getApplicationContext(), "Пользователь сохранен",Toast.LENGTH_LONG).show();
-                person = response.body();
-                render();
-            }
-        }
-
-        @Override
-        public void onFailure(Call<Person> call, Throwable t) {
-            Toast.makeText(getApplicationContext(), "Ошибка сохранения: " + t.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }
 
 }

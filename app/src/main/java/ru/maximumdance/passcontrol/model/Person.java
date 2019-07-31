@@ -13,7 +13,7 @@ import ru.maximumdance.passcontrol.model.util.DateConverter;
 
 @Entity
 @Table(name = "persons")
-public class Person  implements Parcelable {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,77 +48,7 @@ public class Person  implements Parcelable {
             mappedBy = "person")
     List<Pass> passes = new ArrayList<>();
 
-   // @Version
-   // private Long version;
-
     public  Person(){}
-
-
-    protected Person(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            cardNumber = null;
-        } else {
-            cardNumber = in.readInt();
-        }
-        firstName = in.readString();
-        lastName = in.readString();
-        midName = in.readString();
-        phoneNumber = in.readString();
-        comment = in.readString();
-        try {
-            birthDate = DateConverter.fromString(in.readString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        passes = in.createTypedArrayList(Pass.CREATOR);
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(id);
-        }
-        if (cardNumber == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(cardNumber);
-        }
-        dest.writeString(firstName);
-        dest.writeString(lastName);
-        dest.writeString(midName);
-        dest.writeString(phoneNumber);
-        dest.writeString(comment);
-        dest.writeString(DateConverter.toString(birthDate));
-        dest.writeTypedList(passes);
-    }
-
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
-        @Override
-        public Person createFromParcel(Parcel in) {
-            return new Person(in);
-        }
-
-        @Override
-        public Person[] newArray(int size) {
-            return new Person[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-
 
     public Integer getId() {
         return id;

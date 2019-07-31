@@ -1,10 +1,9 @@
 package ru.maximumdance.passcontrol;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -12,11 +11,15 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ru.maximumdance.passcontrol.listadapter.CourseAdapter;
+import ru.maximumdance.passcontrol.model.Course;
 import ru.maximumdance.passcontrol.model.Pass;
 
 
@@ -34,20 +37,11 @@ public class PassActivity extends AppCompatActivity {
     Spinner passCourses;
 
 
+    @BindView(R.id.lessonCounts)
+    Spinner lessonCounts;
+
     private Calendar launchDate;
     private Calendar expireDate;
-
-    Pass pass;
-
-    public static Intent createIntent(Activity from, Pass pass) {
-
-        Intent intent = new Intent(from, PassActivity.class);
-        if (pass!=null){
-            intent.putExtra(PASS_KEY, pass);
-        }
-        return  intent;
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +49,24 @@ public class PassActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pass);
         ButterKnife.bind(this);
 
-        pass = getIntent().getParcelableExtra(PASS_KEY);
+        App.getAppComponent().aviableCourses().observe(this, value -> {
 
-        if (pass == null){
-            init();
-        } else {
-            render();
-        }
+            CourseAdapter adapter = new CourseAdapter(this,value.toArray(new Course[0]));
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            passCourses.setAdapter(adapter);
 
+        });
+
+        List<String> lessons = App.getAppComponent().getLessonCount().stream().map(Object::toString).collect(Collectors.toList());
+        ArrayAdapter<String> adapterLesson = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lessons);
+        adapterLesson.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        lessonCounts.setAdapter(adapterLesson);
+
+        init();
     }
 
-    private void render() {
+    private void render(Pass pass) {
 
         expireDate.setTime(pass.getTerminateDate());
         launchDate.setTime(pass.getLaunchDate());
@@ -114,9 +115,16 @@ public class PassActivity extends AppCompatActivity {
 
     @OnClick(R.id.passOk)
     public void onPassOK() {
-        Intent resultIntent = new Intent();
-        setResult(RESULT_OK, resultIntent);
-        finish();
+
+        Pass pass = new Pass();
+        Course selectedCourse = (Course)passCourses.getSelectedItem();
+        Integer selectedItemCount = Integer.parseInt(lessonCounts.getSelectedItem().toString());
+        pass.setItemCount(selectedItemCount);
+        pass.setCourse(selectedCourse);
+
+        System.out.println(pass);
+
+
     }
 
     private String calendar2Str(Calendar cal) {

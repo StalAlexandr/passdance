@@ -15,7 +15,7 @@ import ru.maximumdance.passcontrol.model.util.DateConverter;
 
 @Entity
 @Table(name = "pass")
-public class Pass implements Parcelable {
+public class Pass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,82 +58,6 @@ public class Pass implements Parcelable {
 
     public Pass(){};
 
-
-    protected Pass(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readInt();
-        }
-        course = in.readParcelable(Course.class.getClassLoader());
-        person = in.readParcelable(Person.class.getClassLoader());
-        if (in.readByte() == 0) {
-            itemCount = null;
-        } else {
-            itemCount = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            currentItemCount = null;
-        } else {
-            currentItemCount = in.readInt();
-        }
-
-        try {
-            launchDate = DateConverter.fromString(in.readString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            terminateDate = DateConverter.fromString(in.readString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        lessons = new HashSet<>(in.createTypedArrayList(Lesson.CREATOR));
-
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(id);
-        }
-        parcel.writeParcelable(course, i);
-        parcel.writeParcelable(person, i);
-        if (itemCount == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(itemCount);
-        }
-        if (currentItemCount == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(currentItemCount);
-        }
-        parcel.writeString(DateConverter.toString(launchDate));
-        parcel.writeString(DateConverter.toString(terminateDate));
-        parcel.writeTypedList(new ArrayList<>(lessons));
-
-
-    }
-
-
-    public static final Creator<Pass> CREATOR = new Creator<Pass>() {
-        @Override
-        public Pass createFromParcel(Parcel in) {
-            return new Pass(in);
-        }
-
-        @Override
-        public Pass[] newArray(int size) {
-            return new Pass[size];
-        }
-    };
 
     public Integer getId() {
         return id;
@@ -205,11 +129,17 @@ public class Pass implements Parcelable {
         currentItemCount--;
     }
 
-
     @Override
-    public int describeContents() {
-        return 0;
+    public String toString() {
+        return "Pass{" +
+                "id=" + id +
+                ", course=" + course +
+                ", person=" + person +
+                ", itemCount=" + itemCount +
+                ", currentItemCount=" + currentItemCount +
+                ", launchDate=" + launchDate +
+                ", terminateDate=" + terminateDate +
+                ", lessons=" + lessons +
+                '}';
     }
-
-
 }

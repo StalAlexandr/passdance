@@ -2,10 +2,13 @@ package ru.maximumdance.passcontrol.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 @Entity
 @Table(name = "courses")
-public class Course implements Parcelable {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,43 +17,15 @@ public class Course implements Parcelable {
     @Column
     String name;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "course")
+    List<CourseLevel> courseLevels = new ArrayList<>();
+
     public Course(){}
 
-    protected Course(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readLong();
-        }
-        name = in.readString();
-    }
-
-    public static final Creator<Course> CREATOR = new Creator<Course>() {
-        @Override
-        public Course createFromParcel(Parcel in) {
-            return new Course(in);
-        }
-
-        @Override
-        public Course[] newArray(int size) {
-            return new Course[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeLong(id);
-        }
-        parcel.writeString(name);
+    public List<CourseLevel> getCourseLevels() {
+        return courseLevels;
     }
 
     public Long getId() {
@@ -68,4 +43,6 @@ public class Course implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

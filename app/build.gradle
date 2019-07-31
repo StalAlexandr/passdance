@@ -42,6 +42,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+
+    implementation "android.arch.lifecycle:extensions:1.0.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-support:2.11'
+    implementation 'com.google.dagger:dagger:2.11'
+
     // implementation group: 'org.springframework', name: 'spring-core', version: '4.3.13.RELEASE'
     //   implementation group: 'org.springframework', name: 'spring-web', version: '4.3.13.RELEASE'
     implementation group: 'javax.persistence', name: 'persistence-api', version: '1.0'

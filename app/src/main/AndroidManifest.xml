@@ -36,7 +36,7 @@
         <activity android:name=".PersonActivity"></activity>
         <activity android:name=".BarcodeActivity" />
         <activity android:name=".PassActivity" />
-        <activity android:name=".SearchPersonActivity" />
+        <activity android:name=".PersonSearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
