@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.*;
+import ru.maximumdance.passcontrol.model.Lesson;
 import ru.maximumdance.passcontrol.model.Pass;
 import ru.maximumdance.passcontrol.model.Person;
 
@@ -28,7 +29,9 @@ public interface PersonApi {
     @PUT("/persons/")
     Call<Person> update(@Body Person person);
 
-    @POST("/persons/{id}/pass")
+    @POST("/persons/{id}/pass/")
     Call<Person> addPass(@Path("id") Integer id, @Body Pass person);
 
+    @POST("/pass/{id}/lesson/")
+    Call<Person> addLesson(@Path("id")Integer id, @Body Lesson lesson);
 }

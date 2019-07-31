@@ -24,8 +24,8 @@ public class Lesson {
     Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false,  cascade = CascadeType.MERGE)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    Course course;
+    @JoinColumn(name = "courselevel_id", referencedColumnName = "id")
+    CourseLevel courselevel;
 
     @Column
     Date date;
@@ -37,6 +37,7 @@ public class Lesson {
     @ManyToMany(mappedBy = "lessons")
     Set<Pass> passes = new HashSet<>();
 
+    CourseLevel courseLevel;
 
     public Long getId() {
         return id;
@@ -46,12 +47,12 @@ public class Lesson {
         this.id = id;
     }
 
-    public Course getCourse() {
-        return course;
+    public CourseLevel getCourseLevel() {
+        return courselevel;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseLevel(CourseLevel courselevel) {
+        this.courselevel = courselevel;
     }
 
     public Date getDate() {

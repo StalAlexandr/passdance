@@ -64,7 +64,20 @@ public class NetworkProvider {
 
     };
 
-    public void addLesson(Pass pass, Lesson lesson){
+    public void addLesson(Pass pass, Lesson lesson, CallbackSuccess success, CallbackFail fail){
+
+        personApi.addLesson(pass.getId(), lesson).enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                currentPerson.setValue(response.body());
+                success.call();
+            }
+
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+                fail.call(t);
+            }
+        });
 
     };
 

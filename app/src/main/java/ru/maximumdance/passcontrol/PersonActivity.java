@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.maximumdance.passcontrol.model.CourseLevel;
+import ru.maximumdance.passcontrol.model.Lesson;
 import ru.maximumdance.passcontrol.model.Pass;
 import ru.maximumdance.passcontrol.model.Person;
 import ru.maximumdance.passcontrol.model.util.PersonValidationException;
@@ -68,14 +70,6 @@ public class PersonActivity extends AppCompatActivity {
 
     }
 
-    void onPersonSaveSuccess() {
-        Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
-    }
-
-    private void onPersonSaveFail(Throwable t) {
-        Toast.makeText(getApplicationContext(), "Ошибка сохранения: " + t.getMessage(), Toast.LENGTH_LONG).show();
-    }
-
 
     @OnClick(R.id.addPass)
     public void onAddPass() {
@@ -120,6 +114,13 @@ public class PersonActivity extends AppCompatActivity {
                     .setPositiveButton("Списать", (dialog, whichButton) -> {
                         dialog.dismiss();
                         int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+
+                        CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
+                        Lesson lesson = new Lesson();
+                        lesson.setDate(new Date());
+                        lesson.setCourseLevel(level);
+                        App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
+
                     })
                     .setNegativeButton("Отмена", (dialog, whichButton) -> {
                         dialog.dismiss();
@@ -130,6 +131,22 @@ public class PersonActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onLessonSave(){
+        Toast.makeText(getApplicationContext(), "Урок сохранен", Toast.LENGTH_LONG).show();
+    }
+    public void onLessonSaveFail(Throwable t){
+        Toast.makeText(getApplicationContext(), "Ошибка сохранения урока: " + t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    void onPersonSaveSuccess() {
+        Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
+    }
+
+    private void onPersonSaveFail(Throwable t) {
+        Toast.makeText(getApplicationContext(), "Ошибка сохранения пользователя: " + t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
 
 
 }
