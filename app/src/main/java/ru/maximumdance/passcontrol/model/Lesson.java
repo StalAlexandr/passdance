@@ -23,6 +23,7 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false,  cascade = CascadeType.MERGE)
     @JoinColumn(name = "courselevel_id", referencedColumnName = "id")
     CourseLevel courselevel;
@@ -31,13 +32,7 @@ public class Lesson {
     Date date;
 
     @Column
-    String name;
-
-    @JsonBackReference
-    @ManyToMany(mappedBy = "lessons")
-    Set<Pass> passes = new HashSet<>();
-
-    CourseLevel courseLevel;
+    String name="a";
 
     public Long getId() {
         return id;
@@ -47,13 +42,6 @@ public class Lesson {
         this.id = id;
     }
 
-    public CourseLevel getCourseLevel() {
-        return courselevel;
-    }
-
-    public void setCourseLevel(CourseLevel courselevel) {
-        this.courselevel = courselevel;
-    }
 
     public Date getDate() {
         return date;
@@ -63,12 +51,12 @@ public class Lesson {
         this.date = date;
     }
 
-    public Set<Pass> getPasses() {
-        return passes;
+
+    public CourseLevel getCourselevel() {
+        return courselevel;
     }
 
-    public void setPasses(Set<Pass> passes) {
-        this.passes = passes;
+    public void setCourselevel(CourseLevel courselevel) {
+        this.courselevel = courselevel;
     }
-
 }

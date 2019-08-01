@@ -33,5 +33,5 @@ public interface PersonApi {
     Call<Person> addPass(@Path("id") Integer id, @Body Pass person);
 
     @POST("/pass/{id}/lesson/")
-    Call<Person> addLesson(@Path("id")Integer id, @Body Lesson lesson);
+    Call<Person> addLesson(@Path("id")Integer id, @Body Object lesson);
 }

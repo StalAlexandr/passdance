@@ -117,8 +117,8 @@ public class PersonActivity extends AppCompatActivity {
 
                         CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
                         Lesson lesson = new Lesson();
-                        lesson.setDate(new Date());
-                        lesson.setCourseLevel(level);
+                    //    lesson.setDate(new Date());
+                        lesson.setCourselevel(level);
                         App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
 
                     })
