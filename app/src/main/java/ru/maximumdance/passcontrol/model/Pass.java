@@ -132,6 +132,6 @@ public class Pass {
 
     @Override
     public String toString() {
-      return  getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount();
+      return  getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount() + " " + DateConverter.toString(this.launchDate) + "-" + DateConverter.toString(this.terminateDate);
     }
 }

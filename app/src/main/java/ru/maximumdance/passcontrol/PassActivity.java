@@ -124,6 +124,9 @@ public class PassActivity extends AppCompatActivity {
         pass.setItemCount(selectedItemCount);
         pass.setCourse(selectedCourse);
 
+        pass.setLaunchDate(launchDate.getTime());
+        pass.setTerminateDate(expireDate.getTime());
+
         App.getAppComponent().networkProvider().addPass(pass, this::onPassSaved, this::onPassSaveFail);
 
 

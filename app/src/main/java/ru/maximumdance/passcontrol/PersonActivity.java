@@ -109,6 +109,8 @@ public class PersonActivity extends AppCompatActivity {
 
     private void render(Person person) {
 
+        personHistory.setVisibility(View.VISIBLE);
+
         addPass.setVisibility(View.INVISIBLE);
 
         if (person.getCardNumber() == null) { //новый = нечего рендерить

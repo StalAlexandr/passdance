@@ -64,6 +64,6 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return  courselevel.getName() + " " + new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return  courselevel.getName() + " " + DateConverter.toString(date);
     }
 }
