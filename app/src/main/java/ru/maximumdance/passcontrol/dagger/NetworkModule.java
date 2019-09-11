@@ -3,6 +3,7 @@ package ru.maximumdance.passcontrol.dagger;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Credentials;
+import okhttp3.Headers;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,8 +37,25 @@ public class NetworkModule {
 
 
     public NetworkModule(String baseUrl){
+
+
+
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request originalRequest = chain.request();
+
+                Request.Builder builder = originalRequest.newBuilder().header("Authorization",
+                        Credentials.basic("user", "maximum"));
+
+                Request newRequest = builder.build();
+                return chain.proceed(newRequest);
+            }
+        }).build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl) //Базовая часть адреса
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create()) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
     }
