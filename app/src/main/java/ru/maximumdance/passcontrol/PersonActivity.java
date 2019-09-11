@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,6 +40,9 @@ public class PersonActivity extends AppCompatActivity {
 
     @BindView(R.id.passesList)
     ListView passesList;
+
+    @BindView(R.id.addPass)
+    View addPass;
 
     private IntentManager intentManager;
 
@@ -96,9 +100,13 @@ public class PersonActivity extends AppCompatActivity {
 
     private void render(Person person) {
 
+        addPass.setVisibility(View.INVISIBLE);
+
         if (person.getCardNumber() == null) { //новый = нечего рендерить
             return;
         }
+
+        addPass.setVisibility(View.VISIBLE);
         personLastName.setText(person.getLastName());
         personFirstName.setText(person.getFirstName());
         personCard.setText(String.format("%d", person.getCardNumber()));
