@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.maximumdance.passcontrol.listadapter.ActionListAdapter;
+import ru.maximumdance.passcontrol.model.Person;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPersonCreate() {
+        App.getAppComponent().currentPerson().setValue(new Person());
         startActivity(intentManager.onPerson());
     }
 

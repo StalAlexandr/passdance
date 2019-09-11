@@ -91,7 +91,7 @@ public class PersonActivity extends AppCompatActivity {
 
     private void render(Person person) {
 
-        if (person == null) {
+        if (person.getCardNumber() == null) { //новый = нечего рендерить
             return;
         }
         personLastName.setText(person.getLastName());
