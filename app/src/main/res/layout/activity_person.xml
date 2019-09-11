@@ -137,18 +137,19 @@
         android:id="@+id/passesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         app:layout_constraintTop_toBottomOf="@+id/passesTitle"
         />
     </ScrollView>
 
+
     <Button
         android:id="@+id/addPass"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/add_pass_button"
@@ -159,9 +160,9 @@
 
     <Button
         android:id="@+id/addPersonButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/add_person_button"
@@ -170,6 +171,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addPass" />
 
+
+
+    <Button
+        android:id="@+id/personHistoryButton"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/history_person_button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPersonButton" />
 
 
 

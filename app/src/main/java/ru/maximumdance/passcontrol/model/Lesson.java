@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -58,5 +59,11 @@ public class Lesson {
 
     public void setCourselevel(CourseLevel courselevel) {
         this.courselevel = courselevel;
+    }
+
+
+    @Override
+    public String toString() {
+        return  courselevel.getName() + " " + new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 }

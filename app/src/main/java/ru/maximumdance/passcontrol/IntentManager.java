@@ -19,8 +19,15 @@ public class IntentManager {
         return new Intent(context, PersonSearchActivity.class);
     }
 
+
+    public Intent onPersonHistory() {
+        return new Intent(context, PersonHistoryActivity.class);
+    }
+
     public Intent onPass() {
         return new Intent(context, PassActivity.class);
     }
+
+
 
 }

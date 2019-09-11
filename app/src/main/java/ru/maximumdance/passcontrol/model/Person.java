@@ -5,7 +5,10 @@ import android.os.Parcelable;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -149,6 +152,12 @@ public class Person {
                 ", regDate=" + regDate +
                 ", passes=" + passes +
                 '}';
+    }
+
+    public List<Lesson>  getLessons(){
+        List<Lesson> lessons = new LinkedList<>();
+        getPasses().forEach(x->lessons.addAll(x.getLessons()));
+        return  lessons;
     }
 
 

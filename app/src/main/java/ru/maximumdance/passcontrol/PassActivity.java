@@ -29,7 +29,6 @@ import ru.maximumdance.passcontrol.model.Person;
 public class PassActivity extends AppCompatActivity {
 
 
-    private static final String PASS_KEY = "PASS_KEY";
     @BindView(R.id.passDtLaunch)
     TextView launchDateView;
 

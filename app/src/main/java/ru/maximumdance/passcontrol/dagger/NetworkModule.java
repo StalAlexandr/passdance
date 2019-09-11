@@ -3,6 +3,9 @@ package ru.maximumdance.passcontrol.dagger;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,8 @@ public class NetworkModule {
 
     public NetworkModule(String baseUrl){
 
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
 
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
@@ -56,7 +61,7 @@ public class NetworkModule {
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl) //Базовая часть адреса
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create()) //Конвертер, необходимый для преобразования JSON'а в объекты
+                .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
     }
 

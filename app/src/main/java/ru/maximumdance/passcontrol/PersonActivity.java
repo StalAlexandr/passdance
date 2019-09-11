@@ -44,6 +44,9 @@ public class PersonActivity extends AppCompatActivity {
     @BindView(R.id.addPass)
     View addPass;
 
+    @BindView(R.id.personHistoryButton)
+    View personHistory;
+
     private IntentManager intentManager;
 
     @Override
@@ -98,12 +101,22 @@ public class PersonActivity extends AppCompatActivity {
         return person;
     }
 
+
+    @OnClick(R.id.personHistoryButton)
+    public void onPersonHistory(){
+       startActivity(intentManager.onPersonHistory());
+    }
+
     private void render(Person person) {
 
         addPass.setVisibility(View.INVISIBLE);
 
         if (person.getCardNumber() == null) { //новый = нечего рендерить
             return;
+        }
+
+        if (person.getLessons().isEmpty()){
+            personHistory.setVisibility(View.INVISIBLE);
         }
 
         addPass.setVisibility(View.VISIBLE);
@@ -130,7 +143,7 @@ public class PersonActivity extends AppCompatActivity {
 
                         CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
                         Lesson lesson = new Lesson();
-                    //    lesson.setDate(new Date());
+                        lesson.setDate(new Date());
                         lesson.setCourselevel(level);
                         App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
 
