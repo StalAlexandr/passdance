@@ -66,6 +66,7 @@ public class PersonActivity extends AppCompatActivity {
             return;
         }
 
+
         App.getAppComponent().networkProvider().savePerson(person, this::onPersonSaveSuccess, this::onPersonSaveFail);
 
     }
@@ -77,7 +78,11 @@ public class PersonActivity extends AppCompatActivity {
     }
 
     private Person bind() {
-        Person person = new Person();
+        Person person =  App.getAppComponent().currentPerson().getValue();
+
+        if (person ==null) {
+            person = new Person();
+        }
 
         person.setLastName(personLastName.getText().toString().trim());
         person.setFirstName(personFirstName.getText().toString().trim());
@@ -132,14 +137,16 @@ public class PersonActivity extends AppCompatActivity {
 
     }
 
-    public void onLessonSave(){
+    public void onLessonSave(Person person){
+        App.getAppComponent().currentPerson().setValue(person);
         Toast.makeText(getApplicationContext(), "Урок сохранен", Toast.LENGTH_LONG).show();
     }
     public void onLessonSaveFail(Throwable t){
         Toast.makeText(getApplicationContext(), "Ошибка сохранения урока: " + t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    void onPersonSaveSuccess() {
+    void onPersonSaveSuccess(Person person) {
+        App.getAppComponent().currentPerson().setValue(person);
         Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
     }
 

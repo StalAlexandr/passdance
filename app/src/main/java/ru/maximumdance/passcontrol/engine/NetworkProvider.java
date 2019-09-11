@@ -16,8 +16,8 @@ import ru.maximumdance.passcontrol.model.Person;
 public class NetworkProvider {
 
 
-    public interface CallbackSuccess{
-        void call();
+    public interface CallbackSuccess<T>{
+        void call(T t);
     }
 
     public interface CallbackFail{
@@ -34,7 +34,7 @@ public class NetworkProvider {
         this.currentPerson = currentPerson;
     }
 
-    public void savePerson(Person person, CallbackSuccess success, CallbackFail fail){
+    public void savePerson(Person person, CallbackSuccess<Person> success, CallbackFail fail){
 
 
         if (person.getId()==null) {
@@ -43,17 +43,16 @@ public class NetworkProvider {
         else {
             personApi.update(person).enqueue(new PersonCallback(success,fail));
         }
-
     };
 
-    public void addPass(Pass pass, CallbackSuccess success, CallbackFail fail){
+    public void addPass(Pass pass, CallbackSuccess<Person> success, CallbackFail fail){
 
 
         personApi.addPass(currentPerson.getValue().getId(), pass).enqueue(new Callback<Person>() {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
                 currentPerson.setValue(response.body());
-                success.call();
+                success.call(response.body());
             }
 
             @Override
@@ -64,13 +63,13 @@ public class NetworkProvider {
 
     };
 
-    public void addLesson(Pass pass, Lesson lesson, CallbackSuccess success, CallbackFail fail){
+    public void addLesson(Pass pass, Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail){
 
         personApi.addLesson(pass.getId(), lesson).enqueue(new Callback<Person>() {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
                 currentPerson.setValue(response.body());
-                success.call();
+                success.call(response.body());
             }
 
             @Override
@@ -84,7 +83,7 @@ public class NetworkProvider {
 
     class PersonCallback implements Callback<Person> {
 
-        CallbackSuccess success;
+        CallbackSuccess<Person> success;
         CallbackFail fail;
 
         public PersonCallback(CallbackSuccess success, CallbackFail fail) {
@@ -96,7 +95,7 @@ public class NetworkProvider {
         public void onResponse(Call<Person> call, Response<Person> response) {
             if (response.body()!=null){
                 currentPerson.setValue(response.body());
-                success.call();
+                success.call(response.body());
             }
         }
         @Override
@@ -105,4 +104,4 @@ public class NetworkProvider {
         }
     }
 
-}
+ }

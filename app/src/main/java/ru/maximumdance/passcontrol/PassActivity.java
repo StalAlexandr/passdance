@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import ru.maximumdance.passcontrol.listadapter.CourseAdapter;
 import ru.maximumdance.passcontrol.model.Course;
 import ru.maximumdance.passcontrol.model.Pass;
+import ru.maximumdance.passcontrol.model.Person;
 
 
 public class PassActivity extends AppCompatActivity {
@@ -128,8 +129,9 @@ public class PassActivity extends AppCompatActivity {
 
     }
 
-    private void onPassSaved() {
+    private void onPassSaved(Person person) {
         Toast.makeText(getApplicationContext(), "Абонимент сохранен", Toast.LENGTH_LONG).show();
+        App.getAppComponent().currentPerson().setValue(person);
         startActivity(App.getAppComponent().intentManager().onPerson());
     }
 
