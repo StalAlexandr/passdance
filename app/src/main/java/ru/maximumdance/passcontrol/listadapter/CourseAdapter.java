@@ -1,12 +1,13 @@
 package ru.maximumdance.passcontrol.listadapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import ru.maximumdance.passcontrol.R;
 import ru.maximumdance.passcontrol.model.Course;
@@ -19,7 +20,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     int resource;
 
 
-    public CourseAdapter(@NonNull Context context,  @NonNull Course[] objects) {
+    public CourseAdapter(@NonNull Context context, @NonNull Course[] objects) {
         super(context, R.layout.course_item, objects);
         resource = R.layout.course_item;
     }

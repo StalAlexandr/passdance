@@ -3,10 +3,11 @@ package ru.maximumdance.passcontrol.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

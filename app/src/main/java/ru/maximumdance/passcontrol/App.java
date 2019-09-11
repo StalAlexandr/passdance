@@ -20,8 +20,8 @@ public class App extends Application {
 
     private static AppComponent component;
 
-  //  private final String baseUrl = "https://passcontrol.herokuapp.com";
-  private final String baseUrl = "http://10.0.2.2:8080";
+    private final String baseUrl = "https://passcontrol.herokuapp.com";
+ // private final String baseUrl = "http://10.0.2.2:8080";
 
     @Override
     public void onCreate() {

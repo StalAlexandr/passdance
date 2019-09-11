@@ -1,13 +1,11 @@
 package ru.maximumdance.passcontrol.engine;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.widget.Toast;
+
+import androidx.lifecycle.MutableLiveData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.maximumdance.passcontrol.App;
-import ru.maximumdance.passcontrol.PersonActivity;
 import ru.maximumdance.passcontrol.api.PersonApi;
 import ru.maximumdance.passcontrol.model.Lesson;
 import ru.maximumdance.passcontrol.model.Pass;
