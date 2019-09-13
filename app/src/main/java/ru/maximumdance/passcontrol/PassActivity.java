@@ -83,6 +83,7 @@ public class PassActivity extends AppCompatActivity {
         launchDate = Calendar.getInstance();
         expireDate = Calendar.getInstance();
         expireDate.add(Calendar.MONTH, 1);
+        expireDate.add(Calendar.DATE, -1);
         setInitialLaunchDate();
         setInitialExpireDate();
 
