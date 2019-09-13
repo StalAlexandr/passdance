@@ -12,10 +12,10 @@
     <string name="title_activity_person">personActivity</string>
     <string name="person_title">Пользователь</string>
     <string name="person_firstname">Имя:</string>
-    <string name="addpass_btn">Добавить абонимент</string>
+    <string name="addpass_btn">Добавить абонемент</string>
     <string name="person_add_lesson_btn">Списать занятие</string>
-    <string name="edit_pass_btn">Редактировать абонимент</string>
-    <string name="delete_pass_btn">Удалить абонимент</string>
+    <string name="edit_pass_btn">Редактировать абонемент</string>
+    <string name="delete_pass_btn">Удалить абонемент</string>
     <string name="pass_title">Абонимент</string>
     <string name="pass_course">Курс</string>
     <string name="pass_dtlaunch">Дата начала:</string>
