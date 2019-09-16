@@ -86,6 +86,7 @@ public class PersonSearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.searchUserButton)
     public void onSearchUser() {
+        App.hideKeyboard(this);
       if (searchLastNameText.getText().toString().length()>1){
           findByName(searchLastNameText.getText().toString());
       }
