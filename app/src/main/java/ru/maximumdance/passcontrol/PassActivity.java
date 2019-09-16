@@ -81,12 +81,16 @@ public class PassActivity extends AppCompatActivity {
     private void init() {
 
         launchDate = Calendar.getInstance();
-        expireDate = Calendar.getInstance();
+        setInitialLaunchDate();
+        calcExpiredata();
+
+    }
+
+    private void calcExpiredata() {
+        expireDate = (Calendar)launchDate.clone();
         expireDate.add(Calendar.MONTH, 1);
         expireDate.add(Calendar.DATE, -1);
-        setInitialLaunchDate();
         setInitialExpireDate();
-
     }
 
     @OnClick({R.id.passDtexpire})
@@ -109,6 +113,7 @@ public class PassActivity extends AppCompatActivity {
 
     private void setInitialLaunchDate() {
         launchDateView.setText(calendar2Str(launchDate));
+        calcExpiredata();
     }
 
     private void setInitialExpireDate() {
