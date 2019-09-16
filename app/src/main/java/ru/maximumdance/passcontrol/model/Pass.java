@@ -39,10 +39,6 @@ public class Pass {
 
     @Column
     private
-    Integer currentItemCount;
-
-    @Column
-    private
     Date launchDate;
 
     @Column
@@ -90,16 +86,12 @@ public class Pass {
 
     public void setItemCount(Integer itemCount) {
         this.itemCount = itemCount;
-        this.setCurrentItemCount(itemCount);
     }
 
     public Integer getCurrentItemCount() {
-        return currentItemCount;
+        return itemCount - lessons.size();
     }
 
-    public void setCurrentItemCount(Integer currentItemCount) {
-        this.currentItemCount = currentItemCount;
-    }
 
     public Date getLaunchDate() {
         return launchDate;
@@ -127,7 +119,6 @@ public class Pass {
 
     public void addLesson(Lesson lesson){
         lessons.add(lesson);
-        currentItemCount--;
     }
 
     @Override

@@ -79,6 +79,26 @@ public class NetworkProvider {
     };
 
 
+    public void removeLesson(Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail){
+
+        personApi.removeLesson(lesson.getId()).enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                currentPerson.setValue(response.body());
+                success.call(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+                fail.call(t);
+            }
+        });
+
+    };
+
+
+
+
     class PersonCallback implements Callback<Person> {
 
         CallbackSuccess<Person> success;

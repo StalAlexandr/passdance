@@ -34,4 +34,7 @@ public interface PersonApi {
 
     @POST("/pass/{id}/lesson/")
     Call<Person> addLesson(@Path("id")Integer id, @Body Object lesson);
+
+    @DELETE("/lessons/{id}/")
+    Call<Person> removeLesson(@Path("id")Long id);
 }
