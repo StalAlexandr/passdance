@@ -43,9 +43,6 @@ public class PassActivity extends AppCompatActivity {
     @BindView(R.id.lessonCounts)
     Spinner lessonCounts;
 
-    private Calendar launchDate;
-    private Calendar expireDate;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,73 +71,65 @@ public class PassActivity extends AppCompatActivity {
 
     private void observePass(Pass pass) {
         if (pass == null){
-            init();
-            return;
+            pass = new Pass();
+            pass.setLaunchDate(new Date());
+            pass.setTerminateDate(calcTerminateDate(pass.getLaunchDate()));
+            App.getAppComponent().currentPass().setValue(pass);
+           return;
         }
-        launchDate = Calendar.getInstance();
-        launchDate.setTime(pass.getLaunchDate());
-        expireDate = Calendar.getInstance();
-        expireDate.setTime(pass.getLaunchDate());
 
-        setInitialExpireDate();
-        setInitialLaunchDate();
-    }
-
-
-    private void init() {
-
-        launchDate = Calendar.getInstance();
-        setInitialLaunchDate();
-        calcExpiredata();
+        launchDateView.setText(calendar2Str(pass.getLaunchDate()));
+        expireDateView.setText(calendar2Str(pass.getTerminateDate()));
 
     }
 
-    private void calcExpiredata() {
-        expireDate = (Calendar)launchDate.clone();
-        expireDate.add(Calendar.MONTH, 1);
-        expireDate.add(Calendar.DATE, -1);
-        setInitialExpireDate();
+
+    private Date calcTerminateDate(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.getTime();
     }
 
     @OnClick({R.id.passDtexpire})
     public void onSelectExpireDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(App.getAppComponent().currentPass().getValue().getTerminateDate());
+
         new DatePickerDialog(PassActivity.this, R.style.DatePickerDialog, expireListener,
-                expireDate.get(Calendar.YEAR),
-                expireDate.get(Calendar.MONTH),
-                expireDate.get(Calendar.DAY_OF_MONTH))
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
 
     @OnClick({R.id.passDtLaunch})
     public void onSelectLaunchDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(App.getAppComponent().currentPass().getValue().getLaunchDate());
+
         new DatePickerDialog(PassActivity.this, R.style.DatePickerDialog, launchListener,
-                launchDate.get(Calendar.YEAR),
-                launchDate.get(Calendar.MONTH),
-                launchDate.get(Calendar.DAY_OF_MONTH))
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
 
-    private void setInitialLaunchDate() {
-        launchDateView.setText(calendar2Str(launchDate));
-        calcExpiredata();
-    }
-
-    private void setInitialExpireDate() {
-        expireDateView.setText(calendar2Str(expireDate));
-    }
 
 
     @OnClick(R.id.passOk)
     public void onPassOK() {
 
-        Pass pass = new Pass();
+        Pass pass = App.getAppComponent().currentPass().getValue();
+        if (pass==null){
+            pass = new Pass();
+        }
+
         Course selectedCourse = (Course)passCourses.getSelectedItem();
         Integer selectedItemCount = Integer.parseInt(lessonCounts.getSelectedItem().toString());
         pass.setItemCount(selectedItemCount);
         pass.setCourse(selectedCourse);
-
-        pass.setLaunchDate(launchDate.getTime());
-        pass.setTerminateDate(expireDate.getTime());
 
         App.getAppComponent().networkProvider().addPass(pass, this::onPassSaved, this::onPassSaveFail);
 
@@ -157,10 +146,9 @@ public class PassActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Ошибка сохранения: " + t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    private String calendar2Str(Calendar cal) {
-        Date date = cal.getTime();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        return format1.format(date);
+    private String calendar2Str(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        return format.format(date);
     }
 
 
@@ -168,19 +156,23 @@ public class PassActivity extends AppCompatActivity {
 
     private final DatePickerDialog.OnDateSetListener expireListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            expireDate.set(Calendar.YEAR, year);
-            expireDate.set(Calendar.MONTH, monthOfYear);
-            expireDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialExpireDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year,monthOfYear, dayOfMonth);
+
+            Pass pass = App.getAppComponent().currentPass().getValue();
+            pass.setTerminateDate(calendar.getTime());
+            App.getAppComponent().currentPass().setValue(pass);
         }
     };
 
     private final DatePickerDialog.OnDateSetListener launchListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            launchDate.set(Calendar.YEAR, year);
-            launchDate.set(Calendar.MONTH, monthOfYear);
-            launchDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialLaunchDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year,monthOfYear, dayOfMonth);
+
+            Pass pass = App.getAppComponent().currentPass().getValue();
+            pass.setLaunchDate(calendar.getTime());
+            App.getAppComponent().currentPass().setValue(pass);
         }
     };
 

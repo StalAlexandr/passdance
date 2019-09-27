@@ -32,6 +32,9 @@ public interface PersonApi {
     @POST("/persons/{id}/pass/")
     Call<Person> addPass(@Path("id") Integer id, @Body Pass person);
 
+    @PUT("/persons/{id}/pass/")
+    Call<Person> updatePass(@Path("id") Integer id, @Body Pass person);
+
     @POST("/pass/{id}/lesson/")
     Call<Person> addLesson(@Path("id")Integer id, @Body Object lesson);
 

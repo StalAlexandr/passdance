@@ -128,7 +128,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    NetworkProvider networkProvider(PersonApi personApi, MutableLiveData<Person> currentPerson){
+    NetworkProvider networkProvider(PersonApi personApi, MutableLiveData<Person> currentPerson, MutableLiveData<Pass> currentPass){
         return new NetworkProvider(personApi, currentPerson);
     }
 

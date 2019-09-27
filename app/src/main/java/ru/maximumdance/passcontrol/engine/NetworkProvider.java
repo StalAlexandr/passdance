@@ -26,6 +26,7 @@ public class NetworkProvider {
     PersonApi personApi;
 
     MutableLiveData<Person> currentPerson;
+    MutableLiveData<Pass> currentPass;
 
     public NetworkProvider(PersonApi personApi, MutableLiveData<Person> currentPerson) {
         this.personApi = personApi;
@@ -46,7 +47,7 @@ public class NetworkProvider {
     public void addPass(Pass pass, CallbackSuccess<Person> success, CallbackFail fail){
 
 
-        personApi.addPass(currentPerson.getValue().getId(), pass).enqueue(new Callback<Person>() {
+        Callback<Person> callback =  new Callback<Person>() {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
                 currentPerson.setValue(response.body());
@@ -57,7 +58,14 @@ public class NetworkProvider {
             public void onFailure(Call<Person> call, Throwable t) {
                 fail.call(t);
             }
-        });
+        };
+      //  pass.setPerson(currentPerson.getValue());
+
+        if (pass.getId()==null) {
+            personApi.addPass(currentPerson.getValue().getId(), pass).enqueue(callback);
+        } else{
+            personApi.updatePass(currentPerson.getValue().getId(), pass).enqueue(callback);
+        }
 
     };
 
