@@ -29,6 +29,7 @@ import ru.maximumdance.passcontrol.api.PersonApi;
 import ru.maximumdance.passcontrol.engine.NetworkProvider;
 import ru.maximumdance.passcontrol.engine.PersonFinderImpl;
 import ru.maximumdance.passcontrol.model.Course;
+import ru.maximumdance.passcontrol.model.Pass;
 import ru.maximumdance.passcontrol.model.Person;
 
 @Module
@@ -110,6 +111,12 @@ public class NetworkModule {
     @Provides
     @Singleton
     MutableLiveData<Person> currentPerson(){
+        return new MutableLiveData<>();
+    }
+
+    @Provides
+    @Singleton
+    MutableLiveData<Pass> currentPass(){
         return new MutableLiveData<>();
     }
 

@@ -41,7 +41,7 @@ public class PassAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
         holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
         TextView txtTitle =  holder.view.findViewById(R.id.passName);
         ImageView editView =  holder.view.findViewById(R.id.icoEdit);
-        txtTitle.setText(passes.get(position).getCourse().getName());
+        txtTitle.setText(passes.get(position).toString() );
 
         txtTitle.setOnClickListener(view -> listener.click(position, PassEvent.ADDLESSON));
 

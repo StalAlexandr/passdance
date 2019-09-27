@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,6 +52,9 @@ public class PassActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pass);
         ButterKnife.bind(this);
 
+
+        App.getAppComponent().currentPass().observe(this, this::observePass);
+
         App.getAppComponent().aviableCourses().observe(this, value -> {
 
             CourseAdapter adapter = new CourseAdapter(this,value.toArray(new Course[0]));
@@ -65,8 +69,23 @@ public class PassActivity extends AppCompatActivity {
 
         lessonCounts.setAdapter(adapterLesson);
 
-        init();
+      //  init();
     }
+
+    private void observePass(Pass pass) {
+        if (pass == null){
+            init();
+            return;
+        }
+        launchDate = Calendar.getInstance();
+        launchDate.setTime(pass.getLaunchDate());
+        expireDate = Calendar.getInstance();
+        expireDate.setTime(pass.getLaunchDate());
+
+        setInitialExpireDate();
+        setInitialLaunchDate();
+    }
+
 
     private void init() {
 

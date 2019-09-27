@@ -95,6 +95,7 @@ public class PersonActivity extends AppCompatActivity {
 
     @OnClick(R.id.addPass)
     public void onAddPass() {
+        App.getAppComponent().currentPass().setValue(null);
         startActivity(intentManager.onPass());
     }
 
@@ -158,6 +159,9 @@ public class PersonActivity extends AppCompatActivity {
     }
 
     private void onUpdatePass(int i) {
+        Person person =  App.getAppComponent().currentPerson().getValue();
+        App.getAppComponent().currentPass().setValue(person.getPasses().get(i));
+
        startActivity(intentManager.onPass());
     }
 
