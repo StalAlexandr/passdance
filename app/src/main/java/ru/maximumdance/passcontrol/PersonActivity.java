@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.maximumdance.passcontrol.listadapter.PassAdapter;
 import ru.maximumdance.passcontrol.model.CourseLevel;
 import ru.maximumdance.passcontrol.model.Lesson;
 import ru.maximumdance.passcontrol.model.Pass;
@@ -39,7 +42,7 @@ public class PersonActivity extends AppCompatActivity {
     EditText personCard;
 
     @BindView(R.id.passesList)
-    ListView passesList;
+    RecyclerView passesList;
 
     @BindView(R.id.addPass)
     View addPass;
@@ -137,45 +140,62 @@ public class PersonActivity extends AppCompatActivity {
         personLastName.setText(person.getLastName());
         personFirstName.setText(person.getFirstName());
         personCard.setText(String.format("%d", person.getCardNumber()));
+        passesList.setLayoutManager( new LinearLayoutManager(this));
 
-        ArrayAdapter<Pass> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, person.getPasses());
-        passesList.setAdapter(adapter);
-
-
-        passesList.setOnItemClickListener((adapterView, view, i, l) -> {
-
-            Pass pass = App.getAppComponent().currentPerson().getValue().getPasses().get(i);
-
-            if (!pass.isActive()){
-                Toast.makeText(getApplicationContext(), "На абонементе нет уроков или истек срок его действия " , Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            ArrayAdapter<CourseLevel> courseLevelArrayAdapter = new ArrayAdapter<>(this,
-                    android.R.layout.select_dialog_singlechoice, pass.getCourse().getCourseLevels());
-
-            new AlertDialog.Builder(this)
-                    .setSingleChoiceItems(courseLevelArrayAdapter, 0, (dialogInterface, i1) -> System.out.println(i1))
-                    .setPositiveButton("Списать", (dialog, whichButton) -> {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-
-                        CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
-                        Lesson lesson = new Lesson();
-                        lesson.setDate(new Date());
-                        lesson.setCourseLevel(level);
-                        App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
-
-                    })
-                    .setNegativeButton("Отмена", (dialog, whichButton) -> {
-                        dialog.dismiss();
-
-                    })
-                    .show();
-
-        });
+        passesList.setAdapter(new PassAdapter(person.getPasses(), this::onPassClick));
 
     }
+
+    private void onPassClick(int i, PassAdapter.PassEvent event) {
+        if (event.equals(PassAdapter.PassEvent.ADDLESSON)){
+            onAddLesson(i);
+        }
+
+        if (event.equals(PassAdapter.PassEvent.UPDATE)){
+            onUpdatePass(i);
+        }
+
+    }
+
+    private void onUpdatePass(int i) {
+       startActivity(intentManager.onPass());
+    }
+
+    private void onAddLesson(int i) {
+
+        Pass pass = App.getAppComponent().currentPerson().getValue().getPasses().get(i);
+
+        if (!pass.isActive()){
+            Toast.makeText(getApplicationContext(), "На абонементе нет уроков или истек срок его действия " , Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ArrayAdapter<CourseLevel> courseLevelArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.select_dialog_singlechoice, pass.getCourse().getCourseLevels());
+
+        new AlertDialog.Builder(this)
+                .setSingleChoiceItems(courseLevelArrayAdapter, 0, (dialogInterface, i1) -> System.out.println(i1))
+                .setPositiveButton("Списать", (dialog, whichButton) -> {
+                    dialog.dismiss();
+                    int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+
+                    CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
+                    Lesson lesson = new Lesson();
+                    lesson.setDate(new Date());
+                    lesson.setCourseLevel(level);
+                    App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
+
+                })
+                .setNegativeButton("Отмена", (dialog, whichButton) -> {
+                    dialog.dismiss();
+
+                })
+                .show();
+    }
+
+
+
+
 
     public void onLessonSave(Person person){
         App.getAppComponent().currentPerson().setValue(person);

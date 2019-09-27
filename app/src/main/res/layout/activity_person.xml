@@ -126,6 +126,17 @@
         android:text="@string/passes_title"
         />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/passesList"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/passesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+
+
+    <!--
     <ScrollView
         android:id="@+id/passesScroll"
         android:layout_width="wrap_content"
@@ -144,7 +155,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passesTitle"
         />
     </ScrollView>
-
+-->
 
     <Button
         android:id="@+id/addPass"
@@ -157,7 +168,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passesScroll" />
+        app:layout_constraintTop_toBottomOf="@+id/passesList" />
 
     <Button
         android:id="@+id/addPersonButton"

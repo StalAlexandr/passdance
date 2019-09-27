@@ -16,7 +16,7 @@ import java.util.List;
 import ru.maximumdance.passcontrol.Action;
 import ru.maximumdance.passcontrol.R;
 
-public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.MyViewHolder> {
+public class ActionListAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
 
     private final List<Action> actions;
 
@@ -26,14 +26,14 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ViewHolderImpl onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v =  LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.menulist, parent, false);
-        return new ActionListAdapter.MyViewHolder(v);
+        return new ViewHolderImpl(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderImpl holder, int position) {
 
 
         holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
@@ -57,13 +57,4 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
         return actions.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        View view;
-        MyViewHolder(View v) {
-            super(v);
-            this.view = v;
-
-        }
-    }
 }
