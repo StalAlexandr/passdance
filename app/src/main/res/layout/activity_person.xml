@@ -161,42 +161,40 @@
         android:id="@+id/addPass"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/add_pass_button"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passesList" />
+        app:layout_constraintBottom_toTopOf="@+id/addPersonButton" />
 
     <Button
         android:id="@+id/addPersonButton"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/add_person_button"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPass" />
-
-
+        app:layout_constraintBottom_toTopOf="@+id/personHistoryButton" />
 
     <Button
         android:id="@+id/personHistoryButton"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/history_person_button"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPersonButton" />
+        app:layout_constraintBottom_toBottomOf="parent"  />
 
 
 

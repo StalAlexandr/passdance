@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
 import ru.maximumdance.passcontrol.R;
 import ru.maximumdance.passcontrol.model.Course;
 
@@ -17,6 +16,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     private static class ViewHolder {
         private TextView itemView;
     }
+
     int resource;
 
 
@@ -41,7 +41,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
         }
 
         Course item = getItem(position);
-        if (item!= null) {
+        if (item != null) {
             viewHolder.itemView.setText(String.format("%s", item.getName()));
         }
 
@@ -49,7 +49,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent){
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return getView(position, convertView, parent);
     }
 

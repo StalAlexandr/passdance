@@ -2,12 +2,12 @@ package ru.maximumdance.passcontrol;
 
 public class Action {
 
-    public enum Code{
-        CREATEPERSON,SEARCHPERSON,STAT
+    public enum Code {
+        CREATEPERSON, SEARCHPERSON, STAT
     }
 
     @FunctionalInterface
-    public interface Call{
+    public interface Call {
         void call();
     }
 

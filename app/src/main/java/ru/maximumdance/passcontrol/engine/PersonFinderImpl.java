@@ -1,14 +1,9 @@
 package ru.maximumdance.passcontrol.engine;
 
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,9 +25,9 @@ public class PersonFinderImpl {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
 
-                if (response.body()!=null){
+                if (response.body() != null) {
                     liveData.setValue(Collections.singletonList(response.body()));
-                } else{
+                } else {
                     liveData.setValue(Collections.emptyList());
                 }
 
@@ -40,7 +35,7 @@ public class PersonFinderImpl {
 
             @Override
             public void onFailure(Call<Person> call, Throwable t) {
-               throw new RuntimeException(t);
+                throw new RuntimeException(t);
             }
         });
     }
@@ -51,12 +46,13 @@ public class PersonFinderImpl {
             @Override
             public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
 
-                if (response.body()!=null){
+                if (response.body() != null) {
                     liveData.setValue(response.body());
                 } else {
                     liveData.setValue(Collections.emptyList());
                 }
             }
+
             @Override
             public void onFailure(Call<List<Person>> call, Throwable t) {
                 throw new RuntimeException(t);

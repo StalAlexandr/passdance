@@ -98,19 +98,18 @@
         app:layout_constraintTop_toBottomOf="@+id/lessonCounts" />
 
     <TextView
-        android:id="@+id/passDtExpireLabel"
+        android:id="@+id/passDtTerminateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/edit_text_size"
         android:textSize="@dimen/edit_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
-
         app:layout_constraintRight_toRightOf="@id/passGuidelineCenter"
         app:layout_constraintTop_toBottomOf="@+id/passDtLaunch" />
 
     <TextView
-        android:id="@+id/passDtexpire"
+        android:id="@+id/passDtTerminate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/passDtLaunch"
@@ -123,14 +122,28 @@
         android:id="@+id/passOk"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="5dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:text="@string/pass_ok"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/passDelete" />
 
+
+    <Button
+        android:id="@+id/passDelete"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:text="@string/pass_delete"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

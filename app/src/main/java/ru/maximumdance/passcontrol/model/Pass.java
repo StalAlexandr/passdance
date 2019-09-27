@@ -1,16 +1,23 @@
 package ru.maximumdance.passcontrol.model;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import ru.maximumdance.passcontrol.model.util.DateConverter;
 
@@ -50,10 +57,13 @@ public class Pass {
             joinColumns = @JoinColumn(name = "pass_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"))
     private
-    Set<Lesson> lessons  = new HashSet<>();
+    Set<Lesson> lessons = new HashSet<>();
 
 
-    public Pass(){};
+    public Pass() {
+    }
+
+    ;
 
 
     public Integer getId() {
@@ -117,17 +127,17 @@ public class Pass {
         this.lessons = lessons;
     }
 
-    public void addLesson(Lesson lesson){
+    public void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
 
     @Override
     public String toString() {
-      return  getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount() + " " + DateConverter.toString(this.launchDate) + "-" + DateConverter.toString(this.terminateDate);
+        return getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount() + " " + DateConverter.toString(this.launchDate) + "-" + DateConverter.toString(this.terminateDate);
     }
 
     public boolean isActive() {
-      Date current = new Date();
-      return ( (getCurrentItemCount()>0) && current.after(getLaunchDate()) && getTerminateDate().after(current) );
+        Date current = new Date();
+        return ((getCurrentItemCount() > 0) && current.after(getLaunchDate()) && getTerminateDate().after(current));
     }
 }

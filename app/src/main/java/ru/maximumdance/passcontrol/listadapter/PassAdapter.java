@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import ru.maximumdance.passcontrol.R;
 import ru.maximumdance.passcontrol.model.Pass;
 
@@ -30,7 +29,7 @@ public class PassAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
     @NonNull
     @Override
     public ViewHolderImpl onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.passlist, parent, false);
         return new ViewHolderImpl(v);
     }
@@ -39,9 +38,9 @@ public class PassAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
     public void onBindViewHolder(@NonNull ViewHolderImpl holder, int position) {
 
         holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
-        TextView txtTitle =  holder.view.findViewById(R.id.passName);
-        ImageView editView =  holder.view.findViewById(R.id.icoEdit);
-        txtTitle.setText(passes.get(position).toString() );
+        TextView txtTitle = holder.view.findViewById(R.id.passName);
+        ImageView editView = holder.view.findViewById(R.id.icoEdit);
+        txtTitle.setText(passes.get(position).toString());
 
         txtTitle.setOnClickListener(view -> listener.click(position, PassEvent.ADDLESSON));
 
@@ -55,12 +54,12 @@ public class PassAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
     }
 
 
-    public  interface PassClickListener{
+    public interface PassClickListener {
         void click(int position, PassEvent event);
     }
 
 
-    public enum PassEvent{
+    public enum PassEvent {
         ADDLESSON, UPDATE, DELETE;
     }
 }

@@ -1,8 +1,10 @@
 package ru.maximumdance.passcontrol.engine;
 
 
-import androidx.lifecycle.MutableLiveData;
+import java.util.Collections;
+import java.util.List;
 
+import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,12 +15,11 @@ import ru.maximumdance.passcontrol.model.Person;
 
 public class NetworkProvider {
 
-
-    public interface CallbackSuccess<T>{
+    public interface CallbackSuccess<T> {
         void call(T t);
     }
 
-    public interface CallbackFail{
+    public interface CallbackFail {
         void call(Throwable t);
     }
 
@@ -33,79 +34,45 @@ public class NetworkProvider {
         this.currentPerson = currentPerson;
     }
 
-    public void savePerson(Person person, CallbackSuccess<Person> success, CallbackFail fail){
+    public void savePerson(Person person, CallbackSuccess<Person> success, CallbackFail fail) {
 
-
-        if (person.getId()==null) {
-            personApi.create(person).enqueue(new PersonCallback(success,fail));
+        if (person.getId() == null) {
+            personApi.create(person).enqueue(new PersonCallback(success, fail));
+        } else {
+            personApi.update(person).enqueue(new PersonCallback(success, fail));
         }
-        else {
-            personApi.update(person).enqueue(new PersonCallback(success,fail));
-        }
-    };
+    }
 
-    public void addPass(Pass pass, CallbackSuccess<Person> success, CallbackFail fail){
+    public void addPass(Pass pass, CallbackSuccess<Person> success, CallbackFail fail) {
+        Callback<Person> callback =  new PersonCallback(success,fail);
 
-
-        Callback<Person> callback =  new Callback<Person>() {
-            @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                currentPerson.setValue(response.body());
-                success.call(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Person> call, Throwable t) {
-                fail.call(t);
-            }
-        };
-      //  pass.setPerson(currentPerson.getValue());
-
-        if (pass.getId()==null) {
+        if (pass.getId() == null) {
             personApi.addPass(currentPerson.getValue().getId(), pass).enqueue(callback);
-        } else{
+        } else {
             personApi.updatePass(currentPerson.getValue().getId(), pass).enqueue(callback);
         }
 
-    };
+    }
 
-    public void addLesson(Pass pass, Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail){
-
-        personApi.addLesson(pass.getId(), lesson).enqueue(new Callback<Person>() {
-            @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                currentPerson.setValue(response.body());
-                success.call(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Person> call, Throwable t) {
-                fail.call(t);
-            }
-        });
-
-    };
-
-
-    public void removeLesson(Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail){
-
-        personApi.removeLesson(lesson.getId()).enqueue(new Callback<Person>() {
-            @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                currentPerson.setValue(response.body());
-                success.call(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Person> call, Throwable t) {
-                fail.call(t);
-            }
-        });
-
-    };
+    public void deletePass(Pass pass, CallbackSuccess<Person> success, CallbackFail fail) {
+        Callback<Person> callback =  new PersonCallback(success,fail);
+        personApi.deletePass(currentPerson.getValue().getId(),pass.getId()).enqueue(callback);
+    }
 
 
 
+    public void addLesson(Pass pass, Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail) {
+
+        Callback<Person> callback =  new PersonCallback(success,fail);
+        personApi.addLesson(pass.getId(), lesson).enqueue(callback);
+
+    }
+
+    public void removeLesson(Lesson lesson, CallbackSuccess<Person> success, CallbackFail fail) {
+        Callback<Person> callback =  new PersonCallback(success,fail);
+        personApi.removeLesson(lesson.getId()).enqueue(callback);
+
+    }
 
     class PersonCallback implements Callback<Person> {
 
@@ -119,15 +86,19 @@ public class NetworkProvider {
 
         @Override
         public void onResponse(Call<Person> call, Response<Person> response) {
-            if (response.body()!=null){
+            if (response.body() != null) {
                 currentPerson.setValue(response.body());
                 success.call(response.body());
             }
         }
+
         @Override
         public void onFailure(Call<Person> call, Throwable t) {
             fail.call(t);
         }
     }
 
- }
+
+
+
+}

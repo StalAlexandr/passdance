@@ -7,7 +7,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ru.maximumdance.passcontrol.IntentManager;
-import ru.maximumdance.passcontrol.model.Person;
 
 @Module
 public class AppModule {
@@ -25,10 +24,9 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public IntentManager intentManager(){
+    public IntentManager intentManager() {
         return new IntentManager(context());
     }
-
 
 
 }

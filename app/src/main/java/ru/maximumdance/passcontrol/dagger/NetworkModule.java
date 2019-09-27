@@ -1,8 +1,5 @@
 package ru.maximumdance.passcontrol.dagger;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,10 +9,11 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Credentials;
-import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -40,10 +38,9 @@ public class NetworkModule {
     MutableLiveData<List<Course>> courses;
 
 
-    public NetworkModule(String baseUrl){
+    public NetworkModule(String baseUrl) {
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
 
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
@@ -68,7 +65,7 @@ public class NetworkModule {
 
     @Singleton
     @Provides
-    public List<Integer> getLessonCount(){
+    public List<Integer> getLessonCount() {
 
         List<Integer> counts = new ArrayList<>();
         counts.add(1);
@@ -81,13 +78,13 @@ public class NetworkModule {
 
     @Singleton
     @Provides
-    public CourseApi getCourseApi(){
+    public CourseApi getCourseApi() {
         return retrofit.create(CourseApi.class);
     }
 
     @Singleton
     @Provides
-    public PersonApi getPersonApi(){
+    public PersonApi getPersonApi() {
         return retrofit.create(PersonApi.class);
     }
 
@@ -104,34 +101,33 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public MutableLiveData<List<Person>> aviablePersons(){
+    public MutableLiveData<List<Person>> aviablePersons() {
         return new MutableLiveData<>();
     }
 
     @Provides
     @Singleton
-    MutableLiveData<Person> currentPerson(){
+    MutableLiveData<Person> currentPerson() {
         return new MutableLiveData<>();
     }
 
     @Provides
     @Singleton
-    MutableLiveData<Pass> currentPass(){
+    MutableLiveData<Pass> currentPass() {
         return new MutableLiveData<>();
     }
 
     @Provides
     @Singleton
-    public PersonFinderImpl personFinder(MutableLiveData<List<Person>> data, PersonApi personApi){
-        return new PersonFinderImpl(data,personApi);
+    public PersonFinderImpl personFinder(MutableLiveData<List<Person>> data, PersonApi personApi) {
+        return new PersonFinderImpl(data, personApi);
     }
 
     @Provides
     @Singleton
-    NetworkProvider networkProvider(PersonApi personApi, MutableLiveData<Person> currentPerson, MutableLiveData<Pass> currentPass){
+    NetworkProvider networkProvider(PersonApi personApi, MutableLiveData<Person> currentPerson, MutableLiveData<Pass> currentPass) {
         return new NetworkProvider(personApi, currentPerson);
     }
-
 
 
     private void loadData(CourseApi courseApi) {
@@ -142,7 +138,8 @@ public class NetworkModule {
 
         @Override
         public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
-            courses.setValue(response.body()); ;
+            courses.setValue(response.body());
+            ;
         }
 
         @Override
@@ -150,8 +147,6 @@ public class NetworkModule {
             courses.setValue(new ArrayList<>());
         }
     }
-
-
 
 
 }

@@ -1,18 +1,19 @@
 package ru.maximumdance.passcontrol.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.*;
 
-import ru.maximumdance.passcontrol.model.util.DateConverter;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "persons")
@@ -55,7 +56,8 @@ public class Person {
 
     private String error;
 
-    public  Person(){}
+    public Person() {
+    }
 
     public Integer getId() {
         return id;
@@ -137,7 +139,7 @@ public class Person {
         this.passes = passes;
     }
 
-    public void addPass(Pass pass){
+    public void addPass(Pass pass) {
         passes.add(pass);
         pass.setPerson(this);
     }
@@ -166,10 +168,10 @@ public class Person {
                 '}';
     }
 
-    public List<Lesson>  getLessons(){
+    public List<Lesson> getLessons() {
         List<Lesson> lessons = new LinkedList<>();
-        getPasses().forEach(x->lessons.addAll(x.getLessons()));
-        return  lessons;
+        getPasses().forEach(x -> lessons.addAll(x.getLessons()));
+        return lessons;
     }
 
 

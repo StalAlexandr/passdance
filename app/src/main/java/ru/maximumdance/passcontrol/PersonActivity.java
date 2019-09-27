@@ -2,28 +2,19 @@ package ru.maximumdance.passcontrol;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-
-
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ru.maximumdance.passcontrol.listadapter.PassAdapter;
 import ru.maximumdance.passcontrol.model.CourseLevel;
 import ru.maximumdance.passcontrol.model.Lesson;
@@ -62,24 +53,17 @@ public class PersonActivity extends AppCompatActivity {
         App.getAppComponent().currentPerson().observe(this, this::render);
 
 
-        personCard.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(v.getId() == R.id.personCard && !hasFocus) {
-                   App.hideKeyboard(PersonActivity.this);
-                }
+        personCard.setOnFocusChangeListener((v, hasFocus) -> {
+            if (v.getId() == R.id.personCard && !hasFocus) {
+                App.hideKeyboard(PersonActivity.this);
             }
         });
-
-
     }
-
 
     @OnClick(R.id.addPersonButton)
     public void addPerson() {
 
         Person person = bind();
-
         try {
             PersonValidator.validate(person);
         } catch (PersonValidationException e) {
@@ -87,9 +71,7 @@ public class PersonActivity extends AppCompatActivity {
             return;
         }
 
-
         App.getAppComponent().networkProvider().savePerson(person, this::onPersonSaveSuccess, this::onPersonSaveFail);
-
     }
 
 
@@ -99,13 +81,38 @@ public class PersonActivity extends AppCompatActivity {
         startActivity(intentManager.onPass());
     }
 
-    private Person bind() {
-        Person person =  App.getAppComponent().currentPerson().getValue();
-        person.setError(null);
+    @OnClick(R.id.personHistoryButton)
+    public void onPersonHistory() {
+        startActivity(intentManager.onPersonHistory());
+    }
 
-        if (person ==null) {
-            person = new Person();
+
+    // отрисовка персона на вьюху
+    private void render(Person person) {
+        personHistory.setVisibility(View.VISIBLE);
+
+        addPass.setVisibility(View.INVISIBLE);
+
+        if (person.getCardNumber() == null) { //новый = нечего рендерить
+            return;
         }
+
+        if (person.getLessons().isEmpty()) {
+            personHistory.setVisibility(View.INVISIBLE);
+        }
+
+        addPass.setVisibility(View.VISIBLE);
+        personLastName.setText(person.getLastName());
+        personFirstName.setText(person.getFirstName());
+        personCard.setText(String.format("%d", person.getCardNumber()));
+        passesList.setLayoutManager(new LinearLayoutManager(this));
+        passesList.setAdapter(new PassAdapter(person.getPasses(), this::onPassClick));
+    }
+
+    // заполнение полей персона из вьюх
+    private Person bind() {
+        Person person = App.getAppComponent().currentPerson().getValue();
+        person.setError(null);
 
         person.setLastName(personLastName.getText().toString().trim());
         person.setFirstName(personFirstName.getText().toString().trim());
@@ -118,59 +125,23 @@ public class PersonActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.personHistoryButton)
-    public void onPersonHistory(){
-       startActivity(intentManager.onPersonHistory());
-    }
-
-    private void render(Person person) {
-
-        personHistory.setVisibility(View.VISIBLE);
-
-        addPass.setVisibility(View.INVISIBLE);
-
-        if (person.getCardNumber() == null) { //новый = нечего рендерить
-            return;
-        }
-
-        if (person.getLessons().isEmpty()){
-            personHistory.setVisibility(View.INVISIBLE);
-        }
-
-        addPass.setVisibility(View.VISIBLE);
-        personLastName.setText(person.getLastName());
-        personFirstName.setText(person.getFirstName());
-        personCard.setText(String.format("%d", person.getCardNumber()));
-        passesList.setLayoutManager( new LinearLayoutManager(this));
-
-        passesList.setAdapter(new PassAdapter(person.getPasses(), this::onPassClick));
-
-    }
-
+    // обратный вызов для клика по абонементу = либо списываем урок либо редактируем аб-т
     private void onPassClick(int i, PassAdapter.PassEvent event) {
-        if (event.equals(PassAdapter.PassEvent.ADDLESSON)){
+        if (event.equals(PassAdapter.PassEvent.ADDLESSON)) {
             onAddLesson(i);
         }
 
-        if (event.equals(PassAdapter.PassEvent.UPDATE)){
+        if (event.equals(PassAdapter.PassEvent.UPDATE)) {
             onUpdatePass(i);
         }
-
     }
 
-    private void onUpdatePass(int i) {
-        Person person =  App.getAppComponent().currentPerson().getValue();
-        App.getAppComponent().currentPass().setValue(person.getPasses().get(i));
-
-       startActivity(intentManager.onPass());
-    }
-
+    // списываем урок
     private void onAddLesson(int i) {
 
         Pass pass = App.getAppComponent().currentPerson().getValue().getPasses().get(i);
-
-        if (!pass.isActive()){
-            Toast.makeText(getApplicationContext(), "На абонементе нет уроков или истек срок его действия " , Toast.LENGTH_LONG).show();
+        if (!pass.isActive()) {
+            Toast.makeText(getApplicationContext(), "На абонементе нет уроков или истек срок его действия ", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -182,7 +153,6 @@ public class PersonActivity extends AppCompatActivity {
                 .setPositiveButton("Списать", (dialog, whichButton) -> {
                     dialog.dismiss();
                     int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-
                     CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
                     Lesson lesson = new Lesson();
                     lesson.setDate(new Date());
@@ -192,38 +162,38 @@ public class PersonActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Отмена", (dialog, whichButton) -> {
                     dialog.dismiss();
-
                 })
                 .show();
     }
 
+    // редактируем аб-т
+    private void onUpdatePass(int i) {
+        Person person = App.getAppComponent().currentPerson().getValue();
+        App.getAppComponent().currentPass().setValue(person.getPasses().get(i));
+        startActivity(intentManager.onPass());
+    }
 
 
-
-
-    public void onLessonSave(Person person){
-        App.getAppComponent().currentPerson().setValue(person);
+    // сообщения об успешном-не успешном сохранении уроков и аб-тов
+    private void onLessonSave(Person person) {
         Toast.makeText(getApplicationContext(), "Урок сохранен", Toast.LENGTH_LONG).show();
     }
-    public void onLessonSaveFail(Throwable t){
+
+    private void onLessonSaveFail(Throwable t) {
         Toast.makeText(getApplicationContext(), "Ошибка сохранения урока: " + t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    void onPersonSaveSuccess(Person person) {
+    private void onPersonSaveSuccess(Person person) {
 
-        if (person.getError()!=null){
+        if (person.getError() != null) {
             Toast.makeText(getApplicationContext(), person.getError(), Toast.LENGTH_LONG).show();
             return;
         }
-
-        App.getAppComponent().currentPerson().setValue(person);
         Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
     }
 
     private void onPersonSaveFail(Throwable t) {
         Toast.makeText(getApplicationContext(), "Ошибка сохранения пользователя: " + t.getMessage(), Toast.LENGTH_LONG).show();
     }
-
-
 
 }

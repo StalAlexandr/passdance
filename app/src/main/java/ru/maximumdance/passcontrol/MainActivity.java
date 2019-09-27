@@ -3,13 +3,12 @@ package ru.maximumdance.passcontrol;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import ru.maximumdance.passcontrol.listadapter.ActionListAdapter;
 import ru.maximumdance.passcontrol.model.Person;
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         ActionListAdapter adapter = new ActionListAdapter(actions);
 
         RecyclerView list = findViewById(R.id.listmenu);
-        list.setLayoutManager( new LinearLayoutManager(this));
+        list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
         intentManager = App.getAppComponent().intentManager();
@@ -42,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intentManager.onPersonSearch());
     }
 
-    public void onStatistic() {}
+    public void onStatistic() {
+    }
 
     private List<Action> createActions() {
-
 
 
         List<Action> actions = new ArrayList<>();
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ico_statistic, null,
                 this::onStatistic));
 
-        return  actions;
+        return actions;
     }
 
 

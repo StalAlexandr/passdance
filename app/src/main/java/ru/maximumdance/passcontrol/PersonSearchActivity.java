@@ -9,19 +9,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import ru.maximumdance.passcontrol.engine.PersonFinderImpl;
 import ru.maximumdance.passcontrol.model.Person;
 
@@ -48,7 +44,7 @@ public class PersonSearchActivity extends AppCompatActivity {
     @BindString(R.string.personsNotFound)
     String usersNotFound;
 
-    private  List<Person> personList = new ArrayList<>();
+    private List<Person> personList = new ArrayList<>();
 
     private IntentManager intentManager;
     private PersonFinderImpl personFinder;
@@ -67,11 +63,11 @@ public class PersonSearchActivity extends AppCompatActivity {
 
 
         userList.setOnItemClickListener((parent, view, position, id) -> {
-           List<Person> people = App.getAppComponent().aviablePersons().getValue();
+            List<Person> people = App.getAppComponent().aviablePersons().getValue();
 
-            if (people.size()>position){
+            if (people.size() > position) {
                 App.getAppComponent().currentPerson().setValue(people.get(position));
-                Intent intent =  intentManager.onPerson();
+                Intent intent = intentManager.onPerson();
                 startActivity(intent);
             }
         });
@@ -79,7 +75,7 @@ public class PersonSearchActivity extends AppCompatActivity {
         searchСardNumberText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(v.getId() == R.id.searchСardNumberText && !hasFocus) {
+                if (v.getId() == R.id.searchСardNumberText && !hasFocus) {
                     App.hideKeyboard(PersonSearchActivity.this);
                 }
             }
@@ -89,7 +85,7 @@ public class PersonSearchActivity extends AppCompatActivity {
 
     private void render(List<Person> people) {
 
-        List<String> p = people.stream().map(person-> person.getLastName() + " " + person.getFirstName() + " " +person.getCardNumber()).collect(Collectors.toList());
+        List<String> p = people.stream().map(person -> person.getLastName() + " " + person.getFirstName() + " " + person.getCardNumber()).collect(Collectors.toList());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, p);
         userList.setAdapter(adapter);
     }
@@ -97,18 +93,15 @@ public class PersonSearchActivity extends AppCompatActivity {
     @OnClick(R.id.searchUserButton)
     public void onSearchUser() {
         App.hideKeyboard(this);
-      if (searchLastNameText.getText().toString().length()>1){
-          findByName(searchLastNameText.getText().toString());
-      }
-
-      else {
-          if (searchСardNumberText.getText().toString().length()>1){
-              findByCard(Integer.parseInt(searchСardNumberText.getText().toString()));
-          }
-          else {
-              Toast.makeText(this.getApplicationContext(), wrongSearchParams, Toast.LENGTH_SHORT).show();
-          }
-      }
+        if (searchLastNameText.getText().toString().length() > 1) {
+            findByName(searchLastNameText.getText().toString());
+        } else {
+            if (searchСardNumberText.getText().toString().length() > 1) {
+                findByCard(Integer.parseInt(searchСardNumberText.getText().toString()));
+            } else {
+                Toast.makeText(this.getApplicationContext(), wrongSearchParams, Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 

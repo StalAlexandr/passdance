@@ -33,4 +33,5 @@
     <string name="pass_lessonCounts">Число уроков:</string>
     <string name="history_title">История уроков:</string>
     <string name="history_person_button">История уроков</string>
+    <string name="pass_delete">Удалить</string>
 </resources>

@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import ru.maximumdance.passcontrol.Action;
 import ru.maximumdance.passcontrol.R;
 
@@ -27,7 +26,7 @@ public class ActionListAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
     @NonNull
     @Override
     public ViewHolderImpl onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v =  LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.menulist, parent, false);
         return new ViewHolderImpl(v);
     }
@@ -37,8 +36,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
 
 
         holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
-        TextView txtTitle =  holder.view.findViewById(R.id.item);
-        ImageView imageView =  holder.view.findViewById(R.id.icon);
+        TextView txtTitle = holder.view.findViewById(R.id.item);
+        ImageView imageView = holder.view.findViewById(R.id.icon);
         txtTitle.setText(actions.get(position).getName());
         imageView.setImageResource(actions.get(position).getImageId());
 
