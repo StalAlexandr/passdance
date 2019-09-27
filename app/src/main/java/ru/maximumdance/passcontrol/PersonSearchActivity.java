@@ -2,6 +2,7 @@ package ru.maximumdance.passcontrol;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,15 @@ public class PersonSearchActivity extends AppCompatActivity {
                 App.getAppComponent().currentPerson().setValue(people.get(position));
                 Intent intent =  intentManager.onPerson();
                 startActivity(intent);
+            }
+        });
+
+        searchСardNumberText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(v.getId() == R.id.searchСardNumberText && !hasFocus) {
+                    App.hideKeyboard(PersonSearchActivity.this);
+                }
             }
         });
 

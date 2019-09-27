@@ -58,6 +58,17 @@ public class PersonActivity extends AppCompatActivity {
         intentManager = App.getAppComponent().intentManager();
         App.getAppComponent().currentPerson().observe(this, this::render);
 
+
+        personCard.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(v.getId() == R.id.personCard && !hasFocus) {
+                   App.hideKeyboard(PersonActivity.this);
+                }
+            }
+        });
+
+
     }
 
 
