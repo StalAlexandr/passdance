@@ -16,7 +16,7 @@
     <string name="person_add_lesson_btn">Списать занятие</string>
     <string name="edit_pass_btn">Редактировать абонемент</string>
     <string name="delete_pass_btn">Удалить абонемент</string>
-    <string name="pass_title">Абонимент</string>
+    <string name="pass_title">Абонемент</string>
     <string name="pass_course">Курс</string>
     <string name="pass_dtlaunch">Дата начала:</string>
     <string name="edit_text_size">Дата окончания:</string>
@@ -28,8 +28,8 @@
     <string name="wrongSearchParams">Введите номер или фамилию!</string>
     <string name="errorGetPersons">Ошибка сервера при получении списка юзеров!</string>
     <string name="personsNotFound">Полтзователь не найден!</string>
-    <string name="passes_title">Абонименты:</string>
-    <string name="add_pass_button">Абонимент</string>
+    <string name="passes_title">Абонементы:</string>
+    <string name="add_pass_button">Абонемент</string>
     <string name="pass_lessonCounts">Число уроков:</string>
     <string name="history_title">История уроков:</string>
     <string name="history_person_button">История уроков</string>

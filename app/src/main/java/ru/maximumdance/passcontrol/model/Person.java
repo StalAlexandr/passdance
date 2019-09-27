@@ -46,10 +46,14 @@ public class Person {
     @Column
     Date regDate;
 
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "person")
     List<Pass> passes = new ArrayList<>();
+
+
+    private String error;
 
     public  Person(){}
 
@@ -136,6 +140,14 @@ public class Person {
     public void addPass(Pass pass){
         passes.add(pass);
         pass.setPerson(this);
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     @Override

@@ -86,6 +86,7 @@ public class PersonActivity extends AppCompatActivity {
 
     private Person bind() {
         Person person =  App.getAppComponent().currentPerson().getValue();
+        person.setError(null);
 
         if (person ==null) {
             person = new Person();
@@ -134,6 +135,11 @@ public class PersonActivity extends AppCompatActivity {
 
             Pass pass = App.getAppComponent().currentPerson().getValue().getPasses().get(i);
 
+            if (!pass.isActive()){
+                Toast.makeText(getApplicationContext(), "На абонементе нет уроков или истек срок его действия " , Toast.LENGTH_LONG).show();
+                return;
+            }
+
             ArrayAdapter<CourseLevel> courseLevelArrayAdapter = new ArrayAdapter<>(this,
                     android.R.layout.select_dialog_singlechoice, pass.getCourse().getCourseLevels());
 
@@ -146,7 +152,7 @@ public class PersonActivity extends AppCompatActivity {
                         CourseLevel level = pass.getCourse().getCourseLevels().get(selectedPosition);
                         Lesson lesson = new Lesson();
                         lesson.setDate(new Date());
-                        lesson.setCourselevel(level);
+                        lesson.setCourseLevel(level);
                         App.getAppComponent().networkProvider().addLesson(pass, lesson, this::onLessonSave, this::onLessonSaveFail);
 
                     })
@@ -169,6 +175,12 @@ public class PersonActivity extends AppCompatActivity {
     }
 
     void onPersonSaveSuccess(Person person) {
+
+        if (person.getError()!=null){
+            Toast.makeText(getApplicationContext(), person.getError(), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         App.getAppComponent().currentPerson().setValue(person);
         Toast.makeText(getApplicationContext(), "Пользователь сохранен", Toast.LENGTH_LONG).show();
     }

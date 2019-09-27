@@ -1,18 +1,8 @@
 package ru.maximumdance.passcontrol.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import ru.maximumdance.passcontrol.model.util.DateConverter;
 
@@ -27,7 +17,7 @@ public class Lesson {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false,  cascade = CascadeType.MERGE)
     @JoinColumn(name = "courselevel_id", referencedColumnName = "id")
-    CourseLevel courselevel;
+    CourseLevel courseLevel;
 
     @Column
     Date date;
@@ -53,17 +43,17 @@ public class Lesson {
     }
 
 
-    public CourseLevel getCourselevel() {
-        return courselevel;
+    public CourseLevel getCourseLevel() {
+        return courseLevel;
     }
 
-    public void setCourselevel(CourseLevel courselevel) {
-        this.courselevel = courselevel;
+    public void setCourseLevel(CourseLevel courseLevel) {
+        this.courseLevel = courseLevel;
     }
 
 
     @Override
     public String toString() {
-        return  courselevel.getName() + " " + DateConverter.toString(date);
+        return  courseLevel.getName() + " " + DateConverter.toString(date);
     }
 }

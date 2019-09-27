@@ -125,4 +125,9 @@ public class Pass {
     public String toString() {
       return  getCourse().getName() + " " + getCurrentItemCount() + " / " + getItemCount() + " " + DateConverter.toString(this.launchDate) + "-" + DateConverter.toString(this.terminateDate);
     }
+
+    public boolean isActive() {
+      Date current = new Date();
+      return ( (getCurrentItemCount()>0) && current.after(getLaunchDate()) && getTerminateDate().after(current) );
+    }
 }

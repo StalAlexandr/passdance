@@ -68,16 +68,6 @@ public class PassActivity extends AppCompatActivity {
         init();
     }
 
-    private void render(Pass pass) {
-
-        expireDate.setTime(pass.getTerminateDate());
-        launchDate.setTime(pass.getLaunchDate());
-
-        setInitialLaunchDate();
-        setInitialExpireDate();
-
-    }
-
     private void init() {
 
         launchDate = Calendar.getInstance();
@@ -139,7 +129,7 @@ public class PassActivity extends AppCompatActivity {
     }
 
     private void onPassSaved(Person person) {
-        Toast.makeText(getApplicationContext(), "Абонимент сохранен", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Абонемент сохранен", Toast.LENGTH_LONG).show();
         App.getAppComponent().currentPerson().setValue(person);
         startActivity(App.getAppComponent().intentManager().onPerson());
     }
