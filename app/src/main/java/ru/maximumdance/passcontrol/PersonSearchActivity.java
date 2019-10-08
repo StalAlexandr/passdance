@@ -93,10 +93,10 @@ public class PersonSearchActivity extends AppCompatActivity {
     @OnClick(R.id.searchUserButton)
     public void onSearchUser() {
         App.hideKeyboard(this);
-        if (searchLastNameText.getText().toString().length() > 1) {
+        if (searchLastNameText.getText().toString().length() > 0) {
             findByName(searchLastNameText.getText().toString());
         } else {
-            if (searchСardNumberText.getText().toString().length() > 1) {
+            if (searchСardNumberText.getText().toString().length() > 0) {
                 findByCard(Integer.parseInt(searchСardNumberText.getText().toString()));
             } else {
                 Toast.makeText(this.getApplicationContext(), wrongSearchParams, Toast.LENGTH_SHORT).show();

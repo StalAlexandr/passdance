@@ -4,6 +4,7 @@ package ru.maximumdance.passcontrol;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPersonSearch() {
+        App.getAppComponent().aviablePersons().setValue(Collections.emptyList());
         startActivity(intentManager.onPersonSearch());
     }
 

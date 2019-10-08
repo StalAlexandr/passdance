@@ -37,7 +37,7 @@ public class PassAdapter extends RecyclerView.Adapter<ViewHolderImpl> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolderImpl holder, int position) {
 
-        holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
+    //    holder.view.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
         TextView txtTitle = holder.view.findViewById(R.id.passName);
         ImageView editView = holder.view.findViewById(R.id.icoEdit);
         txtTitle.setText(passes.get(position).toString());

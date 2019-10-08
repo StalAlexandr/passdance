@@ -121,7 +121,6 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
-        android:padding="@dimen/header_text_padding"
         android:textSize="@dimen/header_text_size"
         android:text="@string/passes_title"
         />
@@ -130,6 +129,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/passesList"
         android:scrollbars="vertical"
+
+        android:background="@color/common_google_signin_btn_text_dark_pressed"
         app:layout_constraintTop_toBottomOf="@+id/passesTitle"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>

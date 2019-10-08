@@ -55,7 +55,8 @@ public class PassActivity extends AppCompatActivity {
         if (pass == null) {
             pass = new Pass();
             pass.setLaunchDate(new Date());
-            pass.setTerminateDate(calcTerminateDate(pass.getLaunchDate()));
+
+             pass.setTerminateDate(calcTerminateDate(pass.getLaunchDate()));
             App.getAppComponent().currentPass().setValue(pass);
         }
 
@@ -145,6 +146,9 @@ public class PassActivity extends AppCompatActivity {
     private Date calcTerminateDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.DATE, -1);
+
         return calendar.getTime();
     }
 
